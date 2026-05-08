@@ -194,7 +194,7 @@ textarea.tall{height:80px;}
 .enote{font-size:13px;color:var(--g2);line-height:1.65;padding-left:12px;}
 .efree{font-size:12px;color:var(--g3);line-height:1.6;padding-left:12px;margin-top:5px;border-left:3px solid var(--g4);}
 
-.erec-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--g4);}
+
 .btn-edit{
   display:inline-flex;align-items:center;gap:4px;
   font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
@@ -214,6 +214,7 @@ textarea.tall{height:80px;}
 .btn-edit-save:hover{background:var(--rg-d);}
 .btn-edit-cancel{background:var(--wh);color:var(--g2);font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;padding:7px 14px;border-radius:var(--r1);border:1.5px solid var(--g4);cursor:pointer;transition:all .15s;}
 .btn-edit-cancel:hover{border-color:var(--g3);}
+.erec-row{display:flex;align-items:center;justify-content:flex-end;margin-top:10px;padding-top:10px;border-top:1px solid var(--g4);gap:6px;}
 .btn-del{
   display:inline-flex;align-items:center;gap:4px;
   font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
@@ -223,25 +224,10 @@ textarea.tall{height:80px;}
 }
 .btn-del svg{width:12px;height:12px;fill:none;stroke:#C0392B;stroke-width:2;stroke-linecap:round;}
 .btn-del:hover{background:#FEE2E2;border-color:#F87171;}
-.btn-rec{
-  display:inline-flex;align-items:center;gap:5px;
-  font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
-  padding:6px 14px;border-radius:100px;
-  border:1.5px solid var(--g4);background:var(--wh);
-  color:var(--g2);cursor:pointer;
-  transition:all .18s;
-}
-.btn-rec svg{width:13px;height:13px;fill:none;stroke:var(--g2);stroke-width:2;transition:all .18s;}
-.btn-rec .rec-cnt{font-size:12px;font-weight:700;color:var(--g3);}
-.btn-rec:hover:not(:disabled){border-color:var(--rg-m);background:var(--rg-l);color:var(--rg-d);}
-.btn-rec:hover:not(:disabled) svg{stroke:var(--rg-d);}
-.btn-rec:hover:not(:disabled) .rec-cnt{color:var(--rg-d);}
-.btn-rec.voted{border-color:var(--rg);background:var(--rg-l);color:var(--rg-d);}
-.btn-rec.voted svg{stroke:var(--rg);fill:var(--rg);}
-.btn-rec.voted .rec-cnt{color:var(--rg-d);}
-.btn-rec:disabled{opacity:.4;cursor:not-allowed;}
-.btn-rec.own{opacity:.3;cursor:default;pointer-events:none;}
-.empty{text-align:center;padding:56px 20px;border:1.5px dashed var(--g4);border-radius:var(--r4);color:var(--g3);font-size:14px;line-height:1.8;}
+
+
+
+
 .empty strong{display:block;font-size:15px;font-weight:600;color:var(--g2);margin-bottom:6px;}
 
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bk);color:white;font-size:14px;font-weight:500;padding:12px 22px;border-radius:var(--r2);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9999;white-space:nowrap;}
@@ -504,7 +490,7 @@ textarea.tall{height:80px;}
       <div class="frow">
         <div class="field" style="margin-bottom:0">
           <div class="flbl">부서 / 팀 소속 <span class="req">*</span></div>
-          <input type="text" id="f-dept" placeholder="예: 동아에스티 인사팀" maxlength="40"/>
+          <input type="text" id="f-dept" placeholder="경영기획실 / 인재육성팀" maxlength="40"/>
         </div>
         <div class="field" style="margin-bottom:0">
           <div class="flbl">이름 <span class="req">*</span></div>
@@ -620,7 +606,6 @@ async function supaDelete(table, query){
 
 /* ── localStorage fallback ── */
 const LS_KEY     = 'vision2032-v5';
-const LS_VOT_KEY = 'vision2032-votes-v1';
 
 /* ── 통합 CRUD ── */
 async function storageGet(){
@@ -664,22 +649,12 @@ async function storagePatchEntry(id, patch){
 }
 
 /* ── 추천 CRUD ── */
-async function votesGet(){ // 내 기기의 투표 목록 (항상 로컬)
-  try{
-    if(window.storage){ const r=await window.storage.get(LS_VOT_KEY,false); return r?.value?JSON.parse(r.value):[]; }
-  }catch{}
-  try{ const v=localStorage.getItem(LS_VOT_KEY); return v?JSON.parse(v):[]; }catch{ return []; }
-}
-async function votesSave(arr){
-  try{
-    if(window.storage){ await window.storage.set(LS_VOT_KEY,JSON.stringify(arr),false); return; }
-  }catch{}
-  try{ localStorage.setItem(LS_VOT_KEY,JSON.stringify(arr)); }catch{}
-}
+
+
 
 /* ── 상태 ── */
 let entries=[];
-let myVotes=[];
+
 let myIdentity='';
 let bseq=0;
 
@@ -807,31 +782,9 @@ async function submitAll(){
   }
 }
 
-/* ── 추천 ── */
-async function loadVotes(){
-  myVotes = await votesGet();
-}
 
-/* ── 추천 토글 (로컬 카운트만 관리 — DB에 rec_count 컬럼 없음) ── */
-async function toggleRec(entryId){
-  const alreadyVoted = myVotes.includes(entryId);
-  const remainVotes  = 2 - myVotes.length;
 
-  if(alreadyVoted){
-    myVotes = myVotes.filter(id=>id!==entryId);
-    // 로컬 entries에서 카운트 감소
-    const idx = entries.findIndex(e=>e.id===entryId);
-    if(idx>=0) entries[idx]._localRec = Math.max(0,(entries[idx]._localRec||0)-1);
-  } else {
-    if(remainVotes<=0){ toast('추천은 최대 2개까지 가능합니다.'); return; }
-    myVotes.push(entryId);
-    // 로컬 entries에서 카운트 증가
-    const idx = entries.findIndex(e=>e.id===entryId);
-    if(idx>=0) entries[idx]._localRec = (entries[idx]._localRec||0)+1;
-  }
-  await votesSave(myVotes);
-  renderList();
-}
+
 
 /* ── 렌더 ── */
 function renderList(hlIds=[]){
@@ -844,27 +797,10 @@ function renderList(hlIds=[]){
   }
   const sorted=[...entries].sort((a,b)=>new Date(b.created_at||b.ts)-new Date(a.created_at||a.ts));
   let num=sorted.length;
-  const remainVotes = 2 - myVotes.length;
 
   el.innerHTML=sorted.map(e=>{
     const isOwn    = myIdentity && ((e.dept||e.team)+'::'+e.name===myIdentity);
-    const voted    = myVotes.includes(e.id);
-    const recCount = e._localRec||0;
-    const canVote  = !isOwn && (voted || remainVotes>0);
 
-    const recBtn = isOwn
-      ? `<button class="btn-rec own" disabled title="본인 문장에는 추천할 수 없습니다">
-           <svg viewBox="0 0 16 16"><path d="M8 14s-6-3.6-6-8a6 6 0 0112 0c0 4.4-6 8-6 8z"/></svg>
-           <span class="rec-cnt">${recCount>0?recCount:''}</span>
-           추천
-         </button>`
-      : `<button class="btn-rec${voted?' voted':''}" onclick="toggleRec('${e.id}')"
-           ${canVote?'':' disabled'}
-           title="${voted?'추천 취소':remainVotes<=0?'추천 2개를 모두 사용했습니다':'이 문장을 추천합니다'}">
-           <svg viewBox="0 0 16 16"><path d="M8 14s-6-3.6-6-8a6 6 0 0112 0c0 4.4-6 8-6 8z"/></svg>
-           ${recCount>0?`<span class="rec-cnt">${recCount}</span>`:''}
-           ${voted?'추천함':'추천'}
-         </button>`;
 
     const editBtn = isOwn
       ? `<button class="btn-edit" onclick="toggleEditForm('${e.id}')" title="내 문장 수정">
@@ -888,7 +824,7 @@ function renderList(hlIds=[]){
       </div>
       <p class="evis" id="evis-${e.id}">${esc(e.vision)}</p>
       ${e.note?`<p class="enote" id="enote-${e.id}">${esc(e.note)}</p>`:`<p class="enote" id="enote-${e.id}" style="display:none"></p>`}
-      ${e.etc_opinion?`<p class="efree">자유의견: ${esc(e.etc_opinion)}</p>`:''}
+      <!-- 기타 자유의견은 DB에서만 확인, 목록에 미표시 -->
       <div id="editform-${e.id}" style="display:none">
         <div class="edit-form">
           <div style="font-size:11px;font-weight:700;color:var(--rg-d);margin-bottom:8px;">문장 수정</div>
@@ -900,10 +836,7 @@ function renderList(hlIds=[]){
           </div>
         </div>
       </div>
-      <div class="erec-row">
-        <div>${editBtn}</div>
-        <div>${recBtn}</div>
-      </div>
+      <div class="erec-row">${editBtn}</div>
     </div>
   `;
   }).join('');
@@ -924,9 +857,7 @@ async function deleteEntry(entryId){
       }catch{ localStorage.setItem(LS_KEY,JSON.stringify(filtered)); }
     }
     entries = entries.filter(e=>e.id!==entryId);
-    myVotes = myVotes.filter(id=>id!==entryId);
-    await votesSave(myVotes);
-    renderList();
+          renderList();
     toast('문장이 삭제되었습니다.');
   } catch(err){
     console.error(err);
@@ -998,7 +929,6 @@ addBlock(true);
 addBlock(true);
 
 (async()=>{
-  await loadVotes();
   // localStorage 구버전 데이터 클리어
   try{ if(window.storage) await window.storage.set(LS_KEY,'[]',true); }catch{}
   try{ localStorage.removeItem(LS_KEY); }catch{}
