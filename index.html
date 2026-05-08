@@ -38,6 +38,19 @@ nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.94);backdrop-
 .hero-ttl{font-size:80px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:18px;}
 .hero-ttl em{color:var(--rg);font-style:normal;}
 .hero-sub{font-size:22px;color:rgba(255,255,255,.6);letter-spacing:.06em;font-weight:400;margin-top:4px;}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:8px;margin-top:32px;
+  background:var(--rg);color:#fff;
+  font-family:'Pretendard',sans-serif;font-size:16px;font-weight:700;
+  padding:16px 36px;border-radius:100px;border:none;cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 8px 32px rgba(201,149,108,.45);
+  transition:background .18s,transform .12s,box-shadow .18s;
+  letter-spacing:.02em;
+}
+.hero-cta:hover{background:var(--rg-d);transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,149,108,.55);}
+.hero-cta:active{transform:scale(.97);}
+.hero-cta svg{width:18px;height:18px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;}
 
 /* ── 어록 섹션 ── */
 .sec{max-width:1100px;margin:0 auto;padding:48px 40px 0;}
@@ -153,6 +166,17 @@ textarea.tall{height:80px;}
 .live::before{content:'';width:6px;height:6px;background:#3DAD6B;border-radius:50%;animation:pulse 1.8s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 
+.elist-wrap{
+  max-height:680px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-right:4px;
+  scrollbar-width:thin;
+  scrollbar-color:var(--rg-m) transparent;
+}
+.elist-wrap::-webkit-scrollbar{width:4px;}
+.elist-wrap::-webkit-scrollbar-track{background:transparent;}
+.elist-wrap::-webkit-scrollbar-thumb{background:var(--rg-m);border-radius:4px;}
 .elist{display:flex;flex-direction:column;gap:12px;}
 .ecard{background:var(--wh);border:1px solid var(--g4);border-radius:var(--r3);padding:18px 20px;transition:border-color .2s,box-shadow .2s;animation:sIn .35s ease;}
 @keyframes sIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -190,6 +214,15 @@ textarea.tall{height:80px;}
 .btn-edit-save:hover{background:var(--rg-d);}
 .btn-edit-cancel{background:var(--wh);color:var(--g2);font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;padding:7px 14px;border-radius:var(--r1);border:1.5px solid var(--g4);cursor:pointer;transition:all .15s;}
 .btn-edit-cancel:hover{border-color:var(--g3);}
+.btn-del{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
+  padding:5px 12px;border-radius:100px;
+  border:1.5px solid #FECDCA;background:#FFF5F5;color:#C0392B;
+  cursor:pointer;transition:all .18s;
+}
+.btn-del svg{width:12px;height:12px;fill:none;stroke:#C0392B;stroke-width:2;stroke-linecap:round;}
+.btn-del:hover{background:#FEE2E2;border-color:#F87171;}
 .btn-rec{
   display:inline-flex;align-items:center;gap:5px;
   font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
@@ -368,7 +401,10 @@ textarea.tall{height:80px;}
   <div class="hero-ct">
     <div class="hero-ey">VISION 2032 · 후보문장 수합</div>
     <h1 class="hero-ttl">동아쏘시오그룹<br><em>Vision 2032</em> 후보문장 수합</h1>
-    
+    <a href="#submit-form" class="hero-cta">
+      <svg viewBox="0 0 18 18"><path d="M9 3v10M3 9l6-6 6 6"/></svg>
+      문구 제안하기
+    </a>
   </div>
 </section>
 
@@ -467,7 +503,7 @@ textarea.tall{height:80px;}
 
       <div class="frow">
         <div class="field" style="margin-bottom:0">
-          <div class="flbl">소속/부서 <span class="req">*</span></div>
+          <div class="flbl">부서 / 팀 소속 <span class="req">*</span></div>
           <input type="text" id="f-dept" placeholder="예: 동아에스티 인사팀" maxlength="40"/>
         </div>
         <div class="field" style="margin-bottom:0">
@@ -475,15 +511,7 @@ textarea.tall{height:80px;}
           <input type="text" id="f-name" placeholder="홍길동" maxlength="20"/>
         </div>
       </div>
-      <div class="field" style="margin-top:10px">
-        <div class="flbl">직급 <span class="req">*</span></div>
-        <select id="f-rank">
-          <option value="">선택하세요</option>
-          <option>사원</option><option>대리</option><option>과장</option>
-          <option>차장</option><option>부장</option><option>팀장</option>
-          <option>임원</option><option>기타</option>
-        </select>
-      </div>
+
 
       <div class="divline"></div>
 
@@ -529,8 +557,10 @@ textarea.tall{height:80px;}
         <span class="cpill" id="cpill">0건</span>
         <span class="live">LIVE</span>
       </div>
+      <div class="elist-wrap">
       <div id="elist" class="elist">
         <div class="empty"><strong>아직 제안된 문장이 없습니다</strong>왼쪽 폼을 통해 첫 번째로 제안해 보세요.</div>
+      </div>
       </div>
     </div>
 
@@ -725,10 +755,9 @@ function getBlocks(){
 /* ── 제출 ── */
 async function submitAll(){
   const dept=document.getElementById('f-dept').value.trim();
-  const rank=document.getElementById('f-rank').value;
   const name=document.getElementById('f-name').value.trim();
   const free=document.getElementById('f-free').value.trim();
-  if(!dept||!rank||!name){toast('소속/부서, 직급, 이름을 모두 입력해 주세요.');return;}
+  if(!dept||!name){toast('부서/팀 소속과 이름을 입력해 주세요.');return;}
   const blocks=getBlocks();
   if(blocks.some(b=>!b.vision)){toast('후보 문장을 모두 작성해 주세요.');return;}
 
@@ -743,7 +772,6 @@ async function submitAll(){
       const row={
         // id, created_at: Supabase가 자동 생성
         dept,
-        rank,
         name,
         survey_type: 'vision2032',
         vision: blocks[i].vision,
@@ -756,7 +784,6 @@ async function submitAll(){
 
     // 폼 초기화
     document.getElementById('f-dept').value='';
-    document.getElementById('f-rank').value='';
     document.getElementById('f-name').value='';
     document.getElementById('f-free').value='';
     document.getElementById('fc-free').textContent='0';
@@ -785,42 +812,25 @@ async function loadVotes(){
   myVotes = await votesGet();
 }
 
-/* ── 추천 토글 ── */
+/* ── 추천 토글 (로컬 카운트만 관리 — DB에 rec_count 컬럼 없음) ── */
 async function toggleRec(entryId){
   const alreadyVoted = myVotes.includes(entryId);
   const remainVotes  = 2 - myVotes.length;
 
-  try{
-    if(alreadyVoted){
-      myVotes = myVotes.filter(id=>id!==entryId);
-      // rec_count -1
-      const target = entries.find(e=>e.id===entryId);
-      const newCnt = Math.max(0,(target?.rec_count||target?.recCount||0)-1);
-      if(USE_SUPA){
-        await supaUpdate(TBL_ENTRIES, entryId, {rec_count: newCnt});
-      } else {
-        await storagePatchEntry(entryId, {rec_count:newCnt, recCount:newCnt});
-      }
-    } else {
-      if(remainVotes<=0){ toast('추천은 최대 2개까지 가능합니다.'); return; }
-      myVotes.push(entryId);
-      // rec_count +1
-      const target = entries.find(e=>e.id===entryId);
-      const newCnt = (target?.rec_count||target?.recCount||0)+1;
-      if(USE_SUPA){
-        await supaUpdate(TBL_ENTRIES, entryId, {rec_count: newCnt});
-      } else {
-        await storagePatchEntry(entryId, {rec_count:newCnt, recCount:newCnt});
-      }
-    }
-    await votesSave(myVotes);
-    // 최신 데이터 반영
-    entries = await storageGet();
-    renderList();
-  } catch(err){
-    console.error(err);
-    toast('추천 처리 중 오류가 발생했습니다.');
+  if(alreadyVoted){
+    myVotes = myVotes.filter(id=>id!==entryId);
+    // 로컬 entries에서 카운트 감소
+    const idx = entries.findIndex(e=>e.id===entryId);
+    if(idx>=0) entries[idx]._localRec = Math.max(0,(entries[idx]._localRec||0)-1);
+  } else {
+    if(remainVotes<=0){ toast('추천은 최대 2개까지 가능합니다.'); return; }
+    myVotes.push(entryId);
+    // 로컬 entries에서 카운트 증가
+    const idx = entries.findIndex(e=>e.id===entryId);
+    if(idx>=0) entries[idx]._localRec = (entries[idx]._localRec||0)+1;
   }
+  await votesSave(myVotes);
+  renderList();
 }
 
 /* ── 렌더 ── */
@@ -839,7 +849,7 @@ function renderList(hlIds=[]){
   el.innerHTML=sorted.map(e=>{
     const isOwn    = myIdentity && ((e.dept||e.team)+'::'+e.name===myIdentity);
     const voted    = myVotes.includes(e.id);
-    const recCount = e.rec_count||e.recCount||0;
+    const recCount = e._localRec||0;
     const canVote  = !isOwn && (voted || remainVotes>0);
 
     const recBtn = isOwn
@@ -860,6 +870,10 @@ function renderList(hlIds=[]){
       ? `<button class="btn-edit" onclick="toggleEditForm('${e.id}')" title="내 문장 수정">
            <svg viewBox="0 0 14 14"><path d="M10 2l2 2-8 8H2v-2L10 2z"/><line x1="8" y1="4" x2="10" y2="6"/></svg>
            수정
+         </button>
+         <button class="btn-del" onclick="deleteEntry('${e.id}')" title="내 문장 삭제">
+           <svg viewBox="0 0 12 12"><polyline points="1,3 11,3"/><path d="M4 3V2h4v1M5 5v4M7 5v4M2 3l1 7h6l1-7"/></svg>
+           삭제
          </button>`
       : '';
 
@@ -893,6 +907,31 @@ function renderList(hlIds=[]){
     </div>
   `;
   }).join('');
+}
+
+/* ── 삭제 ── */
+async function deleteEntry(entryId){
+  if(!confirm('이 문장을 삭제하시겠습니까?')) return;
+  try{
+    if(USE_SUPA){
+      await supaDelete(TBL_ENTRIES, `id=eq.${entryId}`);
+    } else {
+      const cur = await storageGet();
+      const filtered = cur.filter(e=>e.id!==entryId);
+      try{
+        if(window.storage){ await window.storage.set(LS_KEY,JSON.stringify(filtered),true); }
+        else { localStorage.setItem(LS_KEY,JSON.stringify(filtered)); }
+      }catch{ localStorage.setItem(LS_KEY,JSON.stringify(filtered)); }
+    }
+    entries = entries.filter(e=>e.id!==entryId);
+    myVotes = myVotes.filter(id=>id!==entryId);
+    await votesSave(myVotes);
+    renderList();
+    toast('문장이 삭제되었습니다.');
+  } catch(err){
+    console.error(err);
+    toast('삭제 중 오류가 발생했습니다: '+err.message);
+  }
 }
 
 /* ── 수정 폼 토글 ── */
@@ -960,6 +999,9 @@ addBlock(true);
 
 (async()=>{
   await loadVotes();
+  // localStorage 구버전 데이터 클리어
+  try{ if(window.storage) await window.storage.set(LS_KEY,'[]',true); }catch{}
+  try{ localStorage.removeItem(LS_KEY); }catch{}
   entries = await storageGet();
   renderList();
   if(USE_SUPA){
