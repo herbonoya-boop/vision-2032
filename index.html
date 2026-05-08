@@ -161,6 +161,7 @@ textarea.tall{height:80px;}
 @keyframes nf{0%{background:#FFF0E5;border-color:var(--rg)}80%{background:#FFFAF7;border-color:var(--rg-m)}100%{background:var(--wh);border-color:var(--g4)}}
 .emeta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
 .tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;background:var(--g5);color:var(--g2);}
+.tag.rank{background:var(--rg-l);color:var(--rg-d);}
 .ename{font-size:13px;font-weight:700;color:var(--bk);margin-left:2px;}
 .etime{font-size:11px;color:var(--g3);margin-left:auto;}
 .eseq{font-size:10px;font-weight:700;color:var(--rg-d);background:var(--rg-l);padding:2px 7px;border-radius:4px;}
@@ -241,9 +242,9 @@ textarea.tall{height:80px;}
 .qs-filter.f-rnd.active,.qs-filter.f-rnd:hover{background:var(--rg);color:#fff;border-color:var(--rg);}
 .qs-filter.inactive{background:var(--g5)!important;color:var(--g3)!important;border-color:var(--g4)!important;}
 /* 카드 hide 트랜지션 */
-.qcard.hidden{opacity:0!important;pointer-events:none!important;
-  width:0!important;min-width:0!important;padding:0!important;
-  margin:0!important;border:none!important;overflow:hidden!important;}
+.qcard.hidden{
+  display:none!important;
+}
 </style>
 </head>
 <body>
@@ -466,13 +467,22 @@ textarea.tall{height:80px;}
 
       <div class="frow">
         <div class="field" style="margin-bottom:0">
-          <div class="flbl">팀명 <span class="req">*</span></div>
-          <input type="text" id="f-team" placeholder="예: 인사팀" maxlength="30"/>
+          <div class="flbl">소속/부서 <span class="req">*</span></div>
+          <input type="text" id="f-dept" placeholder="예: 동아에스티 인사팀" maxlength="40"/>
         </div>
         <div class="field" style="margin-bottom:0">
           <div class="flbl">이름 <span class="req">*</span></div>
           <input type="text" id="f-name" placeholder="홍길동" maxlength="20"/>
         </div>
+      </div>
+      <div class="field" style="margin-top:10px">
+        <div class="flbl">직급 <span class="req">*</span></div>
+        <select id="f-rank">
+          <option value="">선택하세요</option>
+          <option>사원</option><option>대리</option><option>과장</option>
+          <option>차장</option><option>부장</option><option>팀장</option>
+          <option>임원</option><option>기타</option>
+        </select>
       </div>
 
       <div class="divline"></div>
@@ -533,11 +543,11 @@ textarea.tall{height:80px;}
 /* ════════════════════════════════════════════
    Supabase 설정
    - SUPA_URL / SUPA_KEY 를 실제 값으로 교체하세요
-   - 테이블: vision2032_entries, vision2032_votes
+   - 테이블: vision_entries
    ════════════════════════════════════════════ */
 const SUPA_URL = 'https://upmaugenjwvpnpiexzqd.supabase.co';
 const SUPA_KEY = 'sb_publishable_x3s6wz7T6fWINeSQxiZJzg_YPIA4HDm';
-const TBL_ENTRIES = 'vision2032_entries';
+const TBL_ENTRIES = 'vision_entries';
 const TBL_VOTES   = 'vision2032_votes';
 
 const USE_SUPA = (SUPA_URL !== 'YOUR_SUPABASE_URL');
@@ -594,16 +604,23 @@ async function storageGet(){
 }
 async function storageInsert(entry){
   if(USE_SUPA){
-    const rows = await supaInsert(TBL_ENTRIES, entry);
+    // Supabase: id/created_at은 DB 자동 생성이므로 제거 후 전송
+    const payload = {...entry};
+    delete payload.id;
+    delete payload.created_at;
+    const rows = await supaInsert(TBL_ENTRIES, payload);
     return Array.isArray(rows)?rows[0]:rows;
   }
+  // localStorage fallback
+  const now = new Date().toISOString();
+  const withId = { id: Date.now().toString()+Math.random().toString(36).slice(2,6), created_at:now, ...entry };
   const cur = await storageGet();
-  cur.push(entry);
+  cur.push(withId);
   try{
-    if(window.storage){ await window.storage.set(LS_KEY,JSON.stringify(cur),true); return entry; }
+    if(window.storage){ await window.storage.set(LS_KEY,JSON.stringify(cur),true); return withId; }
   }catch{}
   try{ localStorage.setItem(LS_KEY,JSON.stringify(cur)); }catch{}
-  return entry;
+  return withId;
 }
 async function storagePatchEntry(id, patch){
   if(USE_SUPA){ return supaUpdate(TBL_ENTRIES, id, patch); }
@@ -707,10 +724,11 @@ function getBlocks(){
 
 /* ── 제출 ── */
 async function submitAll(){
-  const team=document.getElementById('f-team').value.trim();
+  const dept=document.getElementById('f-dept').value.trim();
+  const rank=document.getElementById('f-rank').value;
   const name=document.getElementById('f-name').value.trim();
   const free=document.getElementById('f-free').value.trim();
-  if(!team||!name){toast('팀명과 이름을 입력해 주세요.');return;}
+  if(!dept||!rank||!name){toast('소속/부서, 직급, 이름을 모두 입력해 주세요.');return;}
   const blocks=getBlocks();
   if(blocks.some(b=>!b.vision)){toast('후보 문장을 모두 작성해 주세요.');return;}
 
@@ -720,27 +738,25 @@ async function submitAll(){
   setStatus('');
 
   try{
-    const now=new Date().toISOString();
     const newIds=[];
     for(let i=0;i<blocks.length;i++){
       const row={
-        id: USE_SUPA ? undefined : (Date.now().toString()+i), // Supabase는 uuid 자동생성
-        created_at:now,
-        team, name,
-        vision:blocks[i].vision,
-        note:blocks[i].note,
-        free:i===0?free:'',
-        seq:i+1,
-        total:blocks.length,
-        rec_count:0
+        // id, created_at: Supabase가 자동 생성
+        dept,
+        rank,
+        name,
+        survey_type: 'vision2032',
+        vision: blocks[i].vision,
+        note:   blocks[i].note,
+        etc_opinion: i===0 ? free : ''
       };
-      if(!USE_SUPA) row.id = Date.now().toString()+i; // fallback id
       const saved = await storageInsert(row);
-      newIds.push(saved?.id || row.id);
+      if(saved?.id) newIds.push(saved.id);
     }
 
     // 폼 초기화
-    document.getElementById('f-team').value='';
+    document.getElementById('f-dept').value='';
+    document.getElementById('f-rank').value='';
     document.getElementById('f-name').value='';
     document.getElementById('f-free').value='';
     document.getElementById('fc-free').textContent='0';
@@ -750,14 +766,14 @@ async function submitAll(){
 
     // 최신 데이터 다시 불러와서 렌더
     entries = await storageGet();
-    myIdentity=team+'::'+name;
+    myIdentity = dept+'::'+name;
     renderList(newIds);
     setStatus(blocks.length+'건 제출 완료');
     toast(blocks.length>1?`${blocks.length}건의 문장이 제출되었습니다. 감사합니다.`:'제출이 완료되었습니다. 감사합니다.');
     setTimeout(()=>document.getElementById('elist').scrollIntoView({behavior:'smooth',block:'start'}),200);
   }catch(err){
     console.error(err);
-    toast('저장 중 오류가 발생했습니다. 콘솔을 확인해 주세요.');setStatus('오류 발생');
+    toast('저장 중 오류가 발생했습니다: '+err.message);setStatus('오류 발생');
   }finally{
     btn.disabled=false;
     btn.innerHTML='<svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M2 7l4-4 4 4M6 3v8M3 12h8"/></svg>제출하기';
@@ -821,7 +837,7 @@ function renderList(hlIds=[]){
   const remainVotes = 2 - myVotes.length;
 
   el.innerHTML=sorted.map(e=>{
-    const isOwn    = myIdentity && (e.team+'::'+e.name===myIdentity);
+    const isOwn    = myIdentity && ((e.dept||e.team)+'::'+e.name===myIdentity);
     const voted    = myVotes.includes(e.id);
     const recCount = e.rec_count||e.recCount||0;
     const canVote  = !isOwn && (voted || remainVotes>0);
@@ -851,14 +867,14 @@ function renderList(hlIds=[]){
     <div class="ecard${hlIds.includes(e.id)?' flash':''}" id="ecard-${e.id}">
       <div class="emeta">
         <span class="enum">#${num--}</span>
-        <span class="tag">${esc(e.team||'')}</span>
+        ${e.rank?`<span class="tag rank">${esc(e.rank)}</span>`:''}
+        <span class="tag">${esc(e.dept||e.team||'')}</span>
         <span class="ename">${esc(e.name||'')}</span>
-        ${e.total>1?`<span class="eseq">${e.seq}/${e.total}</span>`:''}
         <span class="etime">${fmt(e.created_at||e.ts)}</span>
       </div>
       <p class="evis" id="evis-${e.id}">${esc(e.vision)}</p>
       ${e.note?`<p class="enote" id="enote-${e.id}">${esc(e.note)}</p>`:`<p class="enote" id="enote-${e.id}" style="display:none"></p>`}
-      ${e.free&&e.seq===1?`<p class="efree">자유의견: ${esc(e.free)}</p>`:''}
+      ${e.etc_opinion?`<p class="efree">자유의견: ${esc(e.etc_opinion)}</p>`:''}
       <div id="editform-${e.id}" style="display:none">
         <div class="edit-form">
           <div style="font-size:11px;font-weight:700;color:var(--rg-d);margin-bottom:8px;">문장 수정</div>
@@ -1044,19 +1060,17 @@ function filterCards(filter){
   const TOTAL   = cards.length / 2;  // 복제 포함 절반
   let halfW = TOTAL * CARD_W;
 
-  // 필터 변경 시 halfW 재계산 (외부에서 호출 가능하도록 window에 노출)
+  // 필터 변경 시 halfW 재계산 — display:none 카드는 자연스럽게 제외됨
   window.recalcHalfW = function(){
     requestAnimationFrame(()=>{
-      // visible 카드(SET1 기준) 수 × CARD_W
-      const visCount = Array.from(track.querySelectorAll('.qcard')).filter(
-        (card, i) => i < TOTAL && !card.classList.contains('hidden')
-      ).length;
-      halfW = visCount * CARD_W;
+      // SET1(앞 절반) 중 visible 카드 수로 halfW 계산
+      const allCards = Array.from(track.querySelectorAll('.qcard'));
+      const set1 = allCards.slice(0, TOTAL);
+      const visCount = set1.filter(card => !card.classList.contains('hidden')).length;
+      halfW = visCount > 0 ? visCount * CARD_W : TOTAL * CARD_W;
       // pos 범위 재조정
-      if(halfW > 0){
-        pos = pos % halfW;
-        if(pos > 0) pos -= halfW;
-      }
+      pos = ((pos % halfW) - halfW) % (-halfW);
+      if(pos > 0) pos -= halfW;
     });
   };
 
