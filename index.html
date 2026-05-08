@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Vision 2032 · 동아쏘시오그룹</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --rg:#C9956C;--rg-l:#F5EDE6;--rg-m:#E8C4AD;--rg-d:#A0704A;
+  --bk:#191F28;--g1:#333D4B;--g2:#8B95A1;--g3:#B0BAC6;--g4:#E8ECF0;--g5:#F2F4F6;--wh:#fff;
+  --r1:10px;--r2:14px;--r3:20px;--r4:28px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Pretendard',-apple-system,sans-serif;background:var(--wh);color:var(--bk);-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--g4);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.n-logo{display:flex;align-items:center;gap:8px;}
+.n-ico{width:30px;height:30px;background:var(--rg);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.n-ico svg{width:16px;height:16px;fill:white;}
+.n-txt{font-size:15px;font-weight:700;color:var(--bk);}
+.n-badge{font-size:11px;font-weight:600;color:var(--rg-d);background:var(--rg-l);padding:3px 10px;border-radius:100px;letter-spacing:.04em;}
+
+/* ── HERO (SVG 추상 배경) ── */
+.hero{
+  position:relative;min-height:420px;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  background:#0D0B18;
+}
+.hero-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,11,24,.82) 0%,rgba(13,11,24,.55) 50%,rgba(13,11,24,.78) 100%);}
+.hero-ct{position:relative;z-index:1;text-align:center;padding:56px 40px;}
+.hero-ey{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.85);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:100px;letter-spacing:.08em;margin-bottom:18px;backdrop-filter:blur(8px);}
+.hero-ey::before{content:'';width:6px;height:6px;background:var(--rg);border-radius:50%;flex-shrink:0;}
+.hero-ttl{font-size:40px;font-weight:800;color:#fff;line-height:1.18;letter-spacing:-.025em;margin-bottom:12px;}
+.hero-ttl em{color:var(--rg);font-style:normal;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.5);letter-spacing:.04em;font-weight:400;}
+
+/* ── 어록 섹션 ── */
+.sec{max-width:1100px;margin:0 auto;padding:48px 40px 0;}
+.sec-hd{display:flex;align-items:center;gap:10px;margin-bottom:22px;}
+.sec-ttl{font-size:17px;font-weight:700;color:var(--bk);}
+
+/* 자동 롤링 컨테이너 */
+.qs-outer{position:relative;overflow:hidden;margin:0 -40px;padding:0 0 28px;}
+/* 양끝 fade */
+.qs-outer::before,.qs-outer::after{content:'';position:absolute;top:0;bottom:28px;width:80px;z-index:2;pointer-events:none;}
+.qs-outer::before{left:0;background:linear-gradient(to right,var(--wh),transparent);}
+.qs-outer::after{right:0;background:linear-gradient(to left,var(--wh),transparent);}
+
+.qs-track{
+  display:flex;gap:16px;
+  width:max-content;
+  animation:marquee 40s linear infinite;
+}
+.qs-track:hover{animation-play-state:paused;}
+@keyframes marquee{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+.qcard{
+  width:320px;flex-shrink:0;
+  background:var(--wh);
+  border:1px solid var(--g4);border-radius:var(--r3);
+  padding:22px 22px 20px;
+  transition:background .25s,border-color .25s,box-shadow .25s,transform .2s;
+  cursor:pointer;
+}
+.qcard:hover{
+  background:var(--rg-l);
+  border-color:var(--rg);
+  box-shadow:0 8px 28px rgba(201,149,108,.22);
+  transform:translateY(-4px);
+}
+.qtheme{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:14px;letter-spacing:.03em;}
+.t-dc{background:#EEF2FF;color:#3B4DA0;}
+.t-rnd{background:#FFF0E8;color:var(--rg-d);}
+/* 구어체 느낌 - Nanum Myeongjo */
+
+.qcard p{
+  font-family:'Noto Serif KR',Georgia,serif;
+  font-size:15.5px;font-weight:400;color:var(--g1);line-height:1.85;
+  word-break:keep-all;
+}
+
+/* ── MAIN 2COL ── */
+.main{max-width:1100px;margin:0 auto;padding:44px 40px 80px;}
+.two-col{display:grid;grid-template-columns:400px 1fr;gap:28px;align-items:start;}
+
+/* ── FORM CARD ── */
+.fc{background:var(--wh);border:1px solid var(--g4);border-radius:var(--r4);padding:26px 22px;position:sticky;top:80px;}
+.fc-ttl{font-size:16px;font-weight:700;color:var(--bk);margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--g4);}
+.field{margin-bottom:10px;}
+.flbl{font-size:12px;font-weight:600;color:var(--g2);margin-bottom:5px;display:flex;align-items:center;gap:3px;}
+.req{color:var(--rg);}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+input,select,textarea{
+  width:100%;font-family:'Pretendard',sans-serif;font-size:14px;color:var(--bk);
+  background:var(--wh);border:1.5px solid var(--g4);border-radius:var(--r1);
+  padding:10px 12px;transition:border-color .15s;outline:none;
+  -webkit-appearance:none;appearance:none;
+}
+input::placeholder,textarea::placeholder{color:var(--g3);}
+input:focus,select:focus,textarea:focus{border-color:var(--rg);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B95A1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
+textarea{resize:none;height:68px;line-height:1.6;}
+textarea.tall{height:80px;}
+.ch{font-size:11px;color:var(--g3);text-align:right;margin-top:3px;}
+.divline{height:1px;background:var(--g4);margin:12px 0 14px;}
+
+/* 후보 블록 */
+.sblock{background:var(--g5);border-radius:var(--r3);padding:15px 15px 13px;margin-bottom:10px;border:1.5px solid transparent;transition:border-color .15s;}
+.sblock:focus-within{border-color:var(--rg-m);background:#FDFAF8;}
+.bh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.bnum{font-size:11px;font-weight:700;color:var(--rg-d);background:var(--rg-l);border:1px solid var(--rg-m);padding:2px 10px;border-radius:100px;}
+.brm{width:22px;height:22px;background:var(--wh);border:1px solid var(--g4);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;padding:0;}
+.brm:hover{border-color:#D95656;background:#FFF0F0;}
+.brm svg{width:9px;height:9px;stroke:var(--g3);transition:stroke .15s;}
+.brm:hover svg{stroke:#C04040;}
+
+/* 추가 작성 버튼 */
+.btn-add{width:100%;margin-bottom:10px;background:var(--wh);border:1.5px dashed var(--rg-m);border-radius:var(--r2);padding:10px;font-family:'Pretendard',sans-serif;font-size:13px;font-weight:600;color:var(--rg);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .15s,border-color .15s;}
+.btn-add:hover{background:var(--rg-l);border-color:var(--rg);}
+.btn-add svg{width:13px;height:13px;}
+
+/* 기타 자유의견 */
+.free-wrap{background:#FAFBFD;border:1px solid var(--g4);border-radius:var(--r2);padding:14px 14px 12px;margin-bottom:12px;}
+.free-ttl{font-size:12px;font-weight:700;color:var(--g1);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.free-ttl::before{content:'';width:3px;height:12px;background:var(--rg);border-radius:2px;display:inline-block;}
+.free-wrap textarea{background:var(--wh);height:68px;}
+
+/* 하단 */
+.ffoot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+.fprivacy{font-size:11px;color:var(--g3);display:flex;align-items:center;gap:3px;}
+.fprivacy svg{width:11px;height:11px;fill:var(--g3);}
+.btn-sub{background:var(--rg);color:white;font-family:'Pretendard',sans-serif;font-size:13px;font-weight:600;padding:9px 20px;border-radius:var(--r1);border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .18s,transform .1s;}
+.btn-sub:hover{background:var(--rg-d);}
+.btn-sub:active{transform:scale(.98);}
+.btn-sub:disabled{opacity:.5;cursor:not-allowed;}
+.btn-sub svg{width:13px;height:13px;}
+#sub-status{font-size:11px;color:var(--g2);text-align:right;margin-top:5px;min-height:14px;}
+
+/* ── LIST ── */
+.lh{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.lttl{font-size:18px;font-weight:700;color:var(--bk);}
+.cpill{font-size:12px;font-weight:700;color:var(--rg-d);background:var(--rg-l);border:1px solid var(--rg-m);padding:3px 10px;border-radius:100px;}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#3DAD6B;}
+.live::before{content:'';width:6px;height:6px;background:#3DAD6B;border-radius:50%;animation:pulse 1.8s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+.elist{display:flex;flex-direction:column;gap:12px;}
+.ecard{background:var(--wh);border:1px solid var(--g4);border-radius:var(--r3);padding:18px 20px;transition:border-color .2s,box-shadow .2s;animation:sIn .35s ease;}
+@keyframes sIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ecard:hover{border-color:var(--rg-m);box-shadow:0 2px 12px rgba(201,149,108,.12);}
+.ecard.flash{animation:nf 1.4s ease forwards;}
+@keyframes nf{0%{background:#FFF0E5;border-color:var(--rg)}80%{background:#FFFAF7;border-color:var(--rg-m)}100%{background:var(--wh);border-color:var(--g4)}}
+.emeta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;background:var(--g5);color:var(--g2);}
+.ename{font-size:13px;font-weight:700;color:var(--bk);margin-left:2px;}
+.etime{font-size:11px;color:var(--g3);margin-left:auto;}
+.eseq{font-size:10px;font-weight:700;color:var(--rg-d);background:var(--rg-l);padding:2px 7px;border-radius:4px;}
+.enum{font-size:10px;font-weight:600;color:var(--g3);background:var(--g5);padding:2px 7px;border-radius:4px;}
+.evis{font-size:15px;font-weight:700;color:var(--bk);line-height:1.55;margin-bottom:7px;padding-left:12px;border-left:3px solid var(--rg);}
+.enote{font-size:13px;color:var(--g2);line-height:1.65;padding-left:12px;}
+.efree{font-size:12px;color:var(--g3);line-height:1.6;padding-left:12px;margin-top:5px;border-left:3px solid var(--g4);}
+
+.erec-row{display:flex;align-items:center;justify-content:flex-end;margin-top:10px;padding-top:10px;border-top:1px solid var(--g4);}
+.btn-rec{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
+  padding:6px 14px;border-radius:100px;
+  border:1.5px solid var(--g4);background:var(--wh);
+  color:var(--g2);cursor:pointer;
+  transition:all .18s;
+}
+.btn-rec svg{width:13px;height:13px;fill:none;stroke:var(--g2);stroke-width:2;transition:all .18s;}
+.btn-rec .rec-cnt{font-size:12px;font-weight:700;color:var(--g3);}
+.btn-rec:hover:not(:disabled){border-color:var(--rg-m);background:var(--rg-l);color:var(--rg-d);}
+.btn-rec:hover:not(:disabled) svg{stroke:var(--rg-d);}
+.btn-rec:hover:not(:disabled) .rec-cnt{color:var(--rg-d);}
+.btn-rec.voted{border-color:var(--rg);background:var(--rg-l);color:var(--rg-d);}
+.btn-rec.voted svg{stroke:var(--rg);fill:var(--rg);}
+.btn-rec.voted .rec-cnt{color:var(--rg-d);}
+.btn-rec:disabled{opacity:.4;cursor:not-allowed;}
+.btn-rec.own{opacity:.3;cursor:default;pointer-events:none;}
+.empty{text-align:center;padding:56px 20px;border:1.5px dashed var(--g4);border-radius:var(--r4);color:var(--g3);font-size:14px;line-height:1.8;}
+.empty strong{display:block;font-size:15px;font-weight:600;color:var(--g2);margin-bottom:6px;}
+
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bk);color:white;font-size:14px;font-weight:500;padding:12px 22px;border-radius:var(--r2);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9999;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+@media(max-width:840px){
+  .two-col{grid-template-columns:1fr;}
+  .fc{position:static;}
+  .hero-ttl{font-size:26px;}
+  nav,.main,.sec{padding-left:20px;padding-right:20px;}
+  .hero-ct{padding:50px 20px;}
+  .qs-outer{margin:0 -20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="n-logo">
+    <div class="n-ico"><svg viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.31 2.69-6 6-6s6 2.69 6 6"/></svg></div>
+    <span class="n-txt">동아쏘시오그룹</span>
+  </div>
+  <span class="n-badge">VISION 2032</span>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero-section">
+  <!-- 추상적 비전 SVG 배경 -->
+  <svg class="hero-svg" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="rg1" cx="20%" cy="40%" r="60%">
+        <stop offset="0%" stop-color="#3B1F6A" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#0D0B18" stop-opacity="1"/>
+      </radialGradient>
+      <radialGradient id="rg2" cx="80%" cy="60%" r="50%">
+        <stop offset="0%" stop-color="#6B2A1A" stop-opacity=".8"/>
+        <stop offset="100%" stop-color="#0D0B18" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="rg3" cx="50%" cy="20%" r="40%">
+        <stop offset="0%" stop-color="#1A2E5A" stop-opacity=".7"/>
+        <stop offset="100%" stop-color="#0D0B18" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
+      <filter id="blur2"><feGaussianBlur stdDeviation="1.2"/></filter>
+    </defs>
+    <!-- 배경 레이어 -->
+    <rect width="1440" height="420" fill="url(#rg1)"/>
+    <rect width="1440" height="420" fill="url(#rg2)"/>
+    <rect width="1440" height="420" fill="url(#rg3)"/>
+
+    <!-- 수평선 / 지평선 느낌 -->
+    <line x1="0" y1="280" x2="1440" y2="260" stroke="rgba(201,149,108,.15)" stroke-width="1"/>
+    <line x1="0" y1="300" x2="1440" y2="285" stroke="rgba(201,149,108,.08)" stroke-width="1"/>
+
+    <!-- 원형 빛 오라 -->
+    <circle cx="720" cy="210" r="280" fill="none" stroke="rgba(201,149,108,.06)" stroke-width="1.5"/>
+    <circle cx="720" cy="210" r="200" fill="none" stroke="rgba(201,149,108,.1)" stroke-width="1"/>
+    <circle cx="720" cy="210" r="120" fill="none" stroke="rgba(201,149,108,.14)" stroke-width="1"/>
+    <circle cx="720" cy="210" r="60" fill="rgba(201,149,108,.06)"/>
+
+    <!-- 떠오르는 빛 줄기 (위로 뻗음) -->
+    <line x1="720" y1="210" x2="580" y2="0" stroke="rgba(201,149,108,.1)" stroke-width="1.5" filter="url(#blur1)"/>
+    <line x1="720" y1="210" x2="720" y2="0" stroke="rgba(201,149,108,.18)" stroke-width="1.5" filter="url(#blur1)"/>
+    <line x1="720" y1="210" x2="860" y2="0" stroke="rgba(201,149,108,.1)" stroke-width="1.5" filter="url(#blur1)"/>
+    <line x1="720" y1="210" x2="480" y2="0" stroke="rgba(180,130,90,.07)" stroke-width="1"/>
+    <line x1="720" y1="210" x2="960" y2="0" stroke="rgba(180,130,90,.07)" stroke-width="1"/>
+
+    <!-- 작은 별 파티클 -->
+    <circle cx="200" cy="60" r="1.5" fill="rgba(255,255,255,.5)"/>
+    <circle cx="340" cy="130" r="1" fill="rgba(255,255,255,.35)"/>
+    <circle cx="130" cy="180" r="1.2" fill="rgba(255,255,255,.4)"/>
+    <circle cx="1100" cy="80" r="1.5" fill="rgba(255,255,255,.5)"/>
+    <circle cx="1250" cy="150" r="1" fill="rgba(255,255,255,.3)"/>
+    <circle cx="1320" cy="200" r="1.2" fill="rgba(255,255,255,.4)"/>
+    <circle cx="850" cy="50" r="1" fill="rgba(255,255,255,.3)"/>
+    <circle cx="450" cy="90" r="1.2" fill="rgba(255,255,255,.35)"/>
+    <circle cx="980" cy="110" r="1.5" fill="rgba(255,255,255,.45)"/>
+    <circle cx="60" cy="100" r="1" fill="rgba(255,255,255,.3)"/>
+    <circle cx="1380" cy="70" r="1.2" fill="rgba(255,255,255,.4)"/>
+
+    <!-- 하단 산 실루엣 느낌 -->
+    <path d="M0 360 Q180 290 360 320 Q540 350 720 300 Q900 250 1080 310 Q1260 360 1440 340 L1440 420 L0 420Z" fill="rgba(10,8,18,.6)"/>
+    <path d="M0 390 Q240 360 480 375 Q720 390 960 365 Q1200 340 1440 370 L1440 420 L0 420Z" fill="rgba(10,8,18,.8)"/>
+
+    <!-- 로즈골드 포인트 글로우 -->
+    <ellipse cx="720" cy="310" rx="400" ry="40" fill="rgba(201,149,108,.04)"/>
+    <ellipse cx="720" cy="210" rx="80" ry="80" fill="rgba(201,149,108,.08)" filter="url(#blur2)"/>
+  </svg>
+  <div class="hero-ov"></div>
+  <div class="hero-ct">
+    <div class="hero-ey">VISION 2032 · 후보문장 수합</div>
+    <h1 class="hero-ttl">동아쏘시오그룹<br><em>Vision 2032</em> 후보문장 수합</h1>
+    <p class="hero-sub">2032년 우리의 미래상을 함께 만들어갑니다</p>
+  </div>
+</section>
+
+<!-- ── 어록 섹션 ── -->
+<div class="sec">
+  <div class="sec-hd">
+    <span class="sec-ttl">위원장님 피드백 및 과거 어록</span>
+    <div class="qs-nav" id="qs-nav">
+      <button class="qs-btn" id="qs-prev" title="이전">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 4 7 10 13 16"/></svg>
+      </button>
+      <button class="qs-btn" id="qs-next" title="다음">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 4 13 10 7 16"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="qs-outer">
+  <!-- 트랙을 2번 복제해서 무한 루프 -->
+  <div class="qs-track" id="qs-track">
+    <!-- SET 1 : 디코드 피드백 -->
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>저걸 보고 우리 직원들이 구체적으로 뭘 해야 하는지 알까?</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>직원 사고 방식을 완전히 개조하는 무엇인가가 있으면 좋을 것 같다.</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>짧고 굵게 한마디로 정리되는 우리의 미래상이 중요하다! "우리 회사가 뭘 하는 회사인가?" "우리 회사가 어떻게 되면 좋을까?"</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>예전에는 출근해서 사가도 부르고 목표 제창도 하고 그랬었는데, 그래도 그렇게 하다 보니 목표가 머리에 박히고 은연 중에 실전에 접목되고 하는 면이 있었다.</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>우리가 뭘 하는 사람인지 뭘 해야 하는지 좀 뾰족하게 알 수 있었으면 좋겠다.</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>힘을 합쳐 유연하고 끈끈한 인간관계 속에서 놀이터에서 놀 듯이 우리 직원들이 일하면 좋겠다.</p></div>
+
+    <!-- SET 1 : 신약개발 -->
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>NASA에서 청소하는 직원에게 뭐하는 사람이냐 물었을 때, '달에 사람 보내는 일을 돕는 사람이다.' 우리는 신약을 만들어 인류에 이바지 하는 사람이라고 대답이 되어야 한다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>우리에게 재산은 연구 파이프라인, 박카스 같은 브랜드이다. 이런 것들 때문에 돈 벌고 직원이 행복할 수 있다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>비연구 직원들이 연구 파이프라인에 대해 아나? 모든 임직원들이 응원하는 라인이 잘될까, 무관심한 게 잘될까?</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>신약개발 위해 HR은 뭘 해야 하나? MKTG는 뭘 해야 하나? 재무는 뭘 해야 하나?</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>제약회사의 사회공헌은 신약 개발에 있다. 난치병을 치료할 수 있는 신약으로 질병으로 고통받는 사람들에게 삶의 의욕과 희망을 주는 것, 이것이 기업이 할 수 있는 가장 큰 봉사 활동이 아닌가.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>동아제약의 사회공헌은 신약 개발에 있다는 것을 새로운 창업정신으로 삼고, 신약 개발과 해외 수출을 통해 온 인류의 건강과 복지 향상을 위해 앞장서 나가야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>판매를 늘리기 위해서는 세계로 수출하는 수밖에 없습니다. 수출하려면 화제가 되는 신약을 개발해야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>지속적인 신약 개발과 함께 앞으로 주력하고자 하는 분야는 바로 혁신신약 개발입니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>매출이 줄어들면 회사의 존립 자체도 위협받을 수 있습니다. 이를 타개할 돌파구는 해외 수출을 늘리는 것이고, 해외 수출을 위해서는 신약이 필요합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>세계인이 좋아하는, 세계인에게 필요한 제품을 만들어야 사업이 커질 수 있고 기업이 성장할 수 있습니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>어떤 사업을 하겠다는 결정이 나면 전 사원이 그 일에 몰두해서 능력과 잠재력을 모두 쏟아부어야 합니다. 요즘은 특히 글로벌화하지 않으면 안 됩니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>회사의 역량이 허용하는 한, R&amp;D 투자를 확대하는 것만이 회사의 지속적인 성장을 보장받는 길입니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>글로벌 시장을 겨냥하는 회사는 외국인 직원 채용을 확대하는 등 사람에 대한 투자도 해야 하며, 신제품 개발에도 투자하여 획기적인 제품을 계속 출시해야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>이제 우리는 국내를 넘어 글로벌 시장에서 손꼽히는 기업이 되어야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>이 제품 없이는 못살겠다는 정도로 고객 Needs를 충족해 주는 신제품을 내기 위해 항상 고민하는 조직이 되어야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>부가가치가 높은 신제품을 만들어 내고, 이익을 낼 수 있는 회사 구조와 체제를 구축해야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>세계로 나가자! 화제가 되는 신약을 개발하여 수출 인프라를 구축하여야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>글로벌 시대에 국내 1위 제약회사는 이제 의미가 없다. 세계 속에서 경쟁하고 등위를 갖기 위해서는 신약개발만이 살 길이다.</p></div>
+
+
+    <!-- SET 2 (복제 — 무한 루프용) -->
+    <!-- SET 1 : 디코드 피드백 -->
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>저걸 보고 우리 직원들이 구체적으로 뭘 해야 하는지 알까?</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>직원 사고 방식을 완전히 개조하는 무엇인가가 있으면 좋을 것 같다.</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>짧고 굵게 한마디로 정리되는 우리의 미래상이 중요하다! "우리 회사가 뭘 하는 회사인가?" "우리 회사가 어떻게 되면 좋을까?"</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>예전에는 출근해서 사가도 부르고 목표 제창도 하고 그랬었는데, 그래도 그렇게 하다 보니 목표가 머리에 박히고 은연 중에 실전에 접목되고 하는 면이 있었다.</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>우리가 뭘 하는 사람인지 뭘 해야 하는지 좀 뾰족하게 알 수 있었으면 좋겠다.</p></div>
+    <div class="qcard"><span class="qtheme t-dc">디코드 피드백</span><p>힘을 합쳐 유연하고 끈끈한 인간관계 속에서 놀이터에서 놀 듯이 우리 직원들이 일하면 좋겠다.</p></div>
+
+    <!-- SET 1 : 신약개발 -->
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>NASA에서 청소하는 직원에게 뭐하는 사람이냐 물었을 때, '달에 사람 보내는 일을 돕는 사람이다.' 우리는 신약을 만들어 인류에 이바지 하는 사람이라고 대답이 되어야 한다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>우리에게 재산은 연구 파이프라인, 박카스 같은 브랜드이다. 이런 것들 때문에 돈 벌고 직원이 행복할 수 있다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>비연구 직원들이 연구 파이프라인에 대해 아나? 모든 임직원들이 응원하는 라인이 잘될까, 무관심한 게 잘될까?</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>신약개발 위해 HR은 뭘 해야 하나? MKTG는 뭘 해야 하나? 재무는 뭘 해야 하나?</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>제약회사의 사회공헌은 신약 개발에 있다. 난치병을 치료할 수 있는 신약으로 질병으로 고통받는 사람들에게 삶의 의욕과 희망을 주는 것, 이것이 기업이 할 수 있는 가장 큰 봉사 활동이 아닌가.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>동아제약의 사회공헌은 신약 개발에 있다는 것을 새로운 창업정신으로 삼고, 신약 개발과 해외 수출을 통해 온 인류의 건강과 복지 향상을 위해 앞장서 나가야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>판매를 늘리기 위해서는 세계로 수출하는 수밖에 없습니다. 수출하려면 화제가 되는 신약을 개발해야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>지속적인 신약 개발과 함께 앞으로 주력하고자 하는 분야는 바로 혁신신약 개발입니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>매출이 줄어들면 회사의 존립 자체도 위협받을 수 있습니다. 이를 타개할 돌파구는 해외 수출을 늘리는 것이고, 해외 수출을 위해서는 신약이 필요합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>세계인이 좋아하는, 세계인에게 필요한 제품을 만들어야 사업이 커질 수 있고 기업이 성장할 수 있습니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>어떤 사업을 하겠다는 결정이 나면 전 사원이 그 일에 몰두해서 능력과 잠재력을 모두 쏟아부어야 합니다. 요즘은 특히 글로벌화하지 않으면 안 됩니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>회사의 역량이 허용하는 한, R&amp;D 투자를 확대하는 것만이 회사의 지속적인 성장을 보장받는 길입니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>글로벌 시장을 겨냥하는 회사는 외국인 직원 채용을 확대하는 등 사람에 대한 투자도 해야 하며, 신제품 개발에도 투자하여 획기적인 제품을 계속 출시해야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>이제 우리는 국내를 넘어 글로벌 시장에서 손꼽히는 기업이 되어야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>이 제품 없이는 못살겠다는 정도로 고객 Needs를 충족해 주는 신제품을 내기 위해 항상 고민하는 조직이 되어야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>부가가치가 높은 신제품을 만들어 내고, 이익을 낼 수 있는 회사 구조와 체제를 구축해야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>세계로 나가자! 화제가 되는 신약을 개발하여 수출 인프라를 구축하여야 합니다.</p></div>
+    <div class="qcard"><span class="qtheme t-rnd">신약개발</span><p>글로벌 시대에 국내 1위 제약회사는 이제 의미가 없다. 세계 속에서 경쟁하고 등위를 갖기 위해서는 신약개발만이 살 길이다.</p></div>
+
+
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="main">
+  <div class="two-col">
+
+    <!-- FORM -->
+    <div class="fc" id="submit-form">
+      <p class="fc-ttl">후보 문장 제안하기</p>
+
+      <div class="frow">
+        <div class="field" style="margin-bottom:0">
+          <div class="flbl">팀명 <span class="req">*</span></div>
+          <input type="text" id="f-team" placeholder="예: 인사팀" maxlength="30"/>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <div class="flbl">이름 <span class="req">*</span></div>
+          <input type="text" id="f-name" placeholder="홍길동" maxlength="20"/>
+        </div>
+      </div>
+
+      <div class="divline"></div>
+
+      <!-- 후보 블록 컨테이너 (기본 2개 자동 생성) -->
+      <div id="blocks-wrap"></div>
+
+      <!-- 추가 작성 버튼 -->
+      <button class="btn-add" onclick="addBlock()">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/>
+        </svg>
+        문구 추가 작성
+      </button>
+
+      <!-- 기타 자유의견 -->
+      <div class="free-wrap">
+        <div class="free-ttl">기타 자유의견</div>
+        <div class="field" style="margin-bottom:0">
+          <textarea id="f-free" class="tall" placeholder="칸에 없을 시 작성 안하셔도 됩니다." maxlength="400" oninput="document.getElementById('fc-free').textContent=this.value.length"></textarea>
+          <p class="ch"><span id="fc-free">0</span>/400자</p>
+        </div>
+      </div>
+
+      <div class="ffoot">
+        <p class="fprivacy">
+          <svg viewBox="0 0 12 12"><path d="M6 1a3 3 0 00-3 3v1H2v6h8V5H9V4a3 3 0 00-3-3zm0 1a2 2 0 012 2v1H4V4a2 2 0 012-2z"/></svg>
+          비전 수립 목적으로만 활용됩니다
+        </p>
+        <button class="btn-sub" id="btn-sub" onclick="submitAll()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+            <path d="M2 7l4-4 4 4M6 3v8M3 12h8"/>
+          </svg>
+          제출하기
+        </button>
+      </div>
+      <p id="sub-status"></p>
+    </div>
+
+    <!-- LIST -->
+    <div>
+      <div class="lh">
+        <span class="lttl">실시간 비전 문장</span>
+        <span class="cpill" id="cpill">0건</span>
+        <span class="live">LIVE</span>
+      </div>
+      <div id="elist" class="elist">
+        <div class="empty"><strong>아직 제안된 문장이 없습니다</strong>왼쪽 폼을 통해 첫 번째로 제안해 보세요.</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── 스토리지 ── */
+const SK='vision2032-v5';
+let entries=[];
+let bseq=0;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmt(iso){const d=new Date(iso);return `${d.getMonth()+1}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;}
+function toast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+function setStatus(msg){document.getElementById('sub-status').textContent=msg;}
+
+async function storageGet(){
+  try{if(window.storage){const r=await window.storage.get(SK,true);return r?.value?JSON.parse(r.value):[];}}catch{}
+  try{const v=localStorage.getItem(SK);return v?JSON.parse(v):[];}catch{return[];}
+}
+async function storageSet(data){
+  try{if(window.storage){await window.storage.set(SK,JSON.stringify(data),true);return;}}catch{}
+  try{localStorage.setItem(SK,JSON.stringify(data));}catch{}
+}
+
+/* ── 블록 관리 ── */
+function addBlock(isDefault){
+  bseq++;
+  const id=bseq;
+  const wrap=document.getElementById('blocks-wrap');
+  const cnt=wrap.querySelectorAll('.sblock').length+1;
+  const isFirst=(cnt===1);
+  const d=document.createElement('div');
+  d.className='sblock';d.id='b'+id;
+  d.innerHTML=`
+    <div class="bh">
+      <span class="bnum" id="bl${id}">후보 ${cnt}</span>
+      ${isFirst?'<div style="width:22px"></div>':`<button class="brm" onclick="rmBlock(${id})" title="삭제"><svg viewBox="0 0 10 10" fill="none" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg></button>`}
+    </div>
+    <div class="field">
+      <div class="flbl">후보 문장 <span class="req">*</span></div>
+      <textarea id="v${id}" placeholder="예: 사람과 건강을 잇는 혁신으로, 더 나은 내일을 만든다" maxlength="100" oninput="document.getElementById('vc${id}').textContent=this.value.length"></textarea>
+      <p class="ch"><span id="vc${id}">0</span>/100자</p>
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <div class="flbl">제안 배경</div>
+      <textarea id="n${id}" placeholder="문구에 담고자 한 의미나 배경을 적어주세요." maxlength="200" oninput="document.getElementById('nc${id}').textContent=this.value.length"></textarea>
+      <p class="ch"><span id="nc${id}">0</span>/200자</p>
+    </div>
+  `;
+  wrap.appendChild(d);
+  if(!isDefault&&cnt>1) d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function rmBlock(id){
+  const el=document.getElementById('b'+id);
+  const wrap=document.getElementById('blocks-wrap');
+  if(el&&wrap.querySelectorAll('.sblock').length>2){el.remove();renum();}
+  else{toast('후보 문장은 최소 2개를 작성해 주세요.');}
+}
+
+function renum(){
+  document.querySelectorAll('.sblock').forEach((b,i)=>{
+    const id=b.id.replace('b','');
+    const lbl=document.getElementById('bl'+id);
+    if(lbl) lbl.textContent='후보 '+(i+1);
+    const rb=b.querySelector('.brm');
+    const ph=b.querySelector('div[style="width:22px"]');
+    if(i===0&&rb){const dv=document.createElement('div');dv.style.width='22px';rb.replaceWith(dv);}
+    if(i>0&&!rb&&ph){
+      const btn=document.createElement('button');
+      btn.className='brm';btn.title='삭제';
+      btn.setAttribute('onclick','rmBlock('+id+')');
+      btn.innerHTML='<svg viewBox="0 0 10 10" fill="none" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>';
+      ph.replaceWith(btn);
+    }
+  });
+}
+
+function getBlocks(){
+  return Array.from(document.querySelectorAll('.sblock')).map(b=>{
+    const id=b.id.replace('b','');
+    return{
+      vision:(document.getElementById('v'+id)||{value:''}).value.trim(),
+      note:(document.getElementById('n'+id)||{value:''}).value.trim()
+    };
+  });
+}
+
+/* ── 제출 ── */
+async function submitAll(){
+  const team=document.getElementById('f-team').value.trim();
+  const name=document.getElementById('f-name').value.trim();
+  const free=document.getElementById('f-free').value.trim();
+  if(!team||!name){toast('팀명과 이름을 입력해 주세요.');return;}
+  const blocks=getBlocks();
+  if(blocks.some(b=>!b.vision)){toast('후보 문장을 모두 작성해 주세요.');return;}
+
+  const btn=document.getElementById('btn-sub');
+  btn.disabled=true;
+  btn.innerHTML='<svg viewBox="0 0 16 16" style="animation:spin .7s linear infinite" fill="none" stroke="white" stroke-width="2"><circle cx="8" cy="8" r="6" stroke-dasharray="20 18"/></svg>저장 중...';
+  setStatus('');
+
+  try{
+    const cur=await storageGet();
+    const now=new Date().toISOString();
+    const newIds=[];
+    for(let i=0;i<blocks.length;i++){
+      const e={
+        id:Date.now().toString()+i,
+        created_at:now,
+        team,name,
+        vision:blocks[i].vision,
+        note:blocks[i].note,
+        free:i===0?free:'',
+        seq:i+1,total:blocks.length
+      };
+      cur.push(e);
+      newIds.push(e.id);
+    }
+    await storageSet(cur);
+    entries=cur;
+
+    // 폼 초기화
+    document.getElementById('f-team').value='';
+    document.getElementById('f-name').value='';
+    document.getElementById('f-free').value='';
+    document.getElementById('fc-free').textContent='0';
+    document.getElementById('blocks-wrap').innerHTML='';
+    bseq=0;
+    addBlock(true);addBlock(true);
+
+    myIdentity=team+'::'+name;
+    renderList(newIds);
+    setStatus(blocks.length+'건 제출 완료');
+    toast(blocks.length>1?`${blocks.length}건의 문장이 제출되었습니다. 감사합니다.`:'제출이 완료되었습니다. 감사합니다.');
+    setTimeout(()=>document.getElementById('elist').scrollIntoView({behavior:'smooth',block:'start'}),200);
+  }catch(err){
+    toast('저장 중 오류가 발생했습니다.');setStatus('오류 발생');
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='<svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M2 7l4-4 4 4M6 3v8M3 12h8"/></svg>제출하기';
+  }
+}
+
+/* ── 추천 스토리지 키 ── */
+const REC_SK = 'vision2032-votes-v1';
+let myVotes = []; // 내가 추천한 entry id 목록
+
+async function loadVotes(){
+  try{
+    if(window.storage){ const r=await window.storage.get(REC_SK,false); myVotes=r?.value?JSON.parse(r.value):[]; return; }
+  }catch{}
+  try{ const v=localStorage.getItem(REC_SK); myVotes=v?JSON.parse(v):[]; }catch{ myVotes=[]; }
+}
+async function saveVotes(){
+  try{ if(window.storage){ await window.storage.set(REC_SK,JSON.stringify(myVotes),false); return; } }catch{}
+  try{ localStorage.setItem(REC_SK,JSON.stringify(myVotes)); }catch{}
+}
+
+/* 현재 제출자 식별 (마지막 제출한 team+name) */
+let myIdentity = ''; // "team::name" 형식
+
+/* ── 추천 토글 ── */
+async function toggleRec(entryId){
+  const alreadyVoted = myVotes.includes(entryId);
+  const remainVotes  = 2 - myVotes.length;
+
+  if(alreadyVoted){
+    // 추천 취소
+    myVotes = myVotes.filter(id=>id!==entryId);
+    const cur = await storageGet();
+    const idx = cur.findIndex(e=>e.id===entryId);
+    if(idx>=0){ cur[idx].recCount = Math.max(0,(cur[idx].recCount||0)-1); }
+    await storageSet(cur);
+    entries=cur;
+  } else {
+    if(remainVotes<=0){ toast('추천은 최대 2개까지 가능합니다.'); return; }
+    myVotes.push(entryId);
+    const cur = await storageGet();
+    const idx = cur.findIndex(e=>e.id===entryId);
+    if(idx>=0){ cur[idx].recCount = (cur[idx].recCount||0)+1; }
+    await storageSet(cur);
+    entries=cur;
+  }
+  await saveVotes();
+  renderList();
+}
+
+/* ── 렌더 ── */
+function renderList(hlIds=[]){
+  const el=document.getElementById('elist');
+  const pill=document.getElementById('cpill');
+  pill.textContent=`총 ${entries.length}건`;
+  if(!entries.length){
+    el.innerHTML='<div class="empty"><strong>아직 제안된 문장이 없습니다</strong>왼쪽 폼을 통해 첫 번째로 제안해 보세요.</div>';
+    return;
+  }
+  const sorted=[...entries].sort((a,b)=>new Date(b.created_at||b.ts)-new Date(a.created_at||a.ts));
+  let num=sorted.length;
+  const remainVotes = 2 - myVotes.length;
+
+  el.innerHTML=sorted.map(e=>{
+    const isOwn    = myIdentity && (e.team+'::'+e.name===myIdentity);
+    const voted    = myVotes.includes(e.id);
+    const recCount = e.recCount||0;
+    const canVote  = !isOwn && (voted || remainVotes>0);
+
+    const recBtn = isOwn
+      ? `<button class="btn-rec own" disabled title="본인 문장에는 추천할 수 없습니다">
+           <svg viewBox="0 0 16 16"><path d="M8 14s-6-3.6-6-8a6 6 0 0112 0c0 4.4-6 8-6 8z"/></svg>
+           <span class="rec-cnt">${recCount>0?recCount:''}</span>
+           추천
+         </button>`
+      : `<button class="btn-rec${voted?' voted':''}" onclick="toggleRec('${e.id}')"
+           ${canVote?'':' disabled'}
+           title="${voted?'추천 취소':remainVotes<=0?'추천 2개를 모두 사용했습니다':'이 문장을 추천합니다'}">
+           <svg viewBox="0 0 16 16"><path d="M8 14s-6-3.6-6-8a6 6 0 0112 0c0 4.4-6 8-6 8z"/></svg>
+           ${recCount>0?`<span class="rec-cnt">${recCount}</span>`:''}
+           ${voted?'추천함':'추천'}
+         </button>`;
+
+    return `
+    <div class="ecard${hlIds.includes(e.id)?' flash':''}">
+      <div class="emeta">
+        <span class="enum">#${num--}</span>
+        <span class="tag">${esc(e.team||'')}</span>
+        <span class="ename">${esc(e.name||'')}</span>
+        ${e.total>1?`<span class="eseq">${e.seq}/${e.total}</span>`:''}
+        <span class="etime">${fmt(e.created_at||e.ts)}</span>
+      </div>
+      <p class="evis">${esc(e.vision)}</p>
+      ${e.note?`<p class="enote">${esc(e.note)}</p>`:''}
+      ${e.free&&e.seq===1?`<p class="efree">자유의견: ${esc(e.free)}</p>`:''}
+      <div class="erec-row">${recBtn}</div>
+    </div>
+  `;
+  }).join('');
+}
+
+/* ── 초기화 ── */
+// 기본 2개 블록
+addBlock(true);
+addBlock(true);
+
+loadVotes().then(()=>storageGet().then(data=>{entries=data;renderList();}));
+
+setInterval(async()=>{
+  const before=entries.length;
+  const data=await storageGet();
+  if(data.length>before){entries=data;renderList();toast(`새로운 문장 ${data.length-before}건이 등록되었습니다.`);}
+},12000);
+
+/* ── 어록 롤링 : JS 기반 정밀 제어 ──
+   ① 자동 롤링 (기본 좌→우)
+   ② 휠 스크롤 → 빠르게 / 리버스
+   ③ 좌/우 버튼 → 한 카드씩 이동 (자동 롤링 재개)
+   ④ 드래그(마우스/터치) → 직접 스크롤, 손 뗀 뒤 관성
+   ⑤ 카드 호버 → 정지
+   ⑥ 카드 클릭 → 모달 확대
+*/
+(function(){
+  const outer   = document.querySelector('.qs-outer');
+  const track   = document.getElementById('qs-track');
+  const cards   = Array.from(track.querySelectorAll('.qcard'));
+  const CARD_W  = 320 + 16;          // card width + gap px
+  const TOTAL   = cards.length / 2;  // 복제 포함 절반
+  const halfW   = TOTAL * CARD_W;
+
+  track.style.animation = 'none';
+
+  let pos          = 0;      // translateX (음수 = 앞으로)
+  let speed        = 0.6;    // px/frame 기본 속도
+  let dir          = -1;     // -1 정방향, +1 리버스
+  let autoRun      = true;   // 자동 롤링 on/off
+  let hovering     = false;
+  let lockedModal  = false;
+  let dragActive   = false;
+  let dragStartX   = 0;
+  let dragStartPos = 0;
+  let velocity     = 0;      // 드래그 관성
+  let lastDragX    = 0;
+  let lastDragT    = 0;
+
+  // ── RAF 루프 ──
+  function loop(){
+    if(autoRun && !hovering && !lockedModal && !dragActive){
+      pos += speed * dir;
+      if(dir === -1 && pos <= -halfW) pos += halfW;
+      if(dir ===  1 && pos >=     0) pos -= halfW;
+    }
+    // 드래그 끝난 뒤 관성
+    if(!dragActive && Math.abs(velocity) > 0.1){
+      pos += velocity;
+      velocity *= 0.92;
+      wrap(pos);
+    }
+    track.style.transform = `translateX(${pos}px)`;
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  function wrap(p){
+    if(p <= -halfW) pos += halfW;
+    if(p >=      0) pos -= halfW;
+  }
+
+  // ── 휠: 빠르게 / 리버스 ──
+  outer.addEventListener('wheel', e=>{
+    e.preventDefault();
+    const delta = e.deltaY || e.deltaX;
+    if(delta > 0){ speed = 3; dir = -1; }
+    else          { speed = 3; dir =  1; }
+    clearTimeout(outer._wt);
+    outer._wt = setTimeout(()=>{ speed = 0.6; dir = -1; }, 900);
+  }, { passive: false });
+
+  // ── 버튼: 한 카드씩 ──
+  const btnPrev = document.getElementById('qs-prev');
+  const btnNext = document.getElementById('qs-next');
+
+  function nudge(direction){
+    // 잠깐 오토롤링 끄고, 부드럽게 한 카드 이동 후 재개
+    autoRun = false;
+    const target = pos + direction * CARD_W;
+    let start = null;
+    const from = pos;
+    function animate(ts){
+      if(!start) start = ts;
+      const t = Math.min((ts - start) / 320, 1);
+      const ease = 1 - Math.pow(1 - t, 3);
+      pos = from + (target - from) * ease;
+      wrap(pos);
+      track.style.transform = `translateX(${pos}px)`;
+      if(t < 1){ requestAnimationFrame(animate); }
+      else{ autoRun = true; }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  if(btnPrev) btnPrev.addEventListener('click', ()=> nudge(1));   // 왼쪽 = +방향
+  if(btnNext) btnNext.addEventListener('click', ()=> nudge(-1));  // 오른쪽 = -방향
+
+  // ── 드래그 (마우스) ──
+  track.addEventListener('mousedown', e=>{
+    dragActive   = true;
+    dragStartX   = e.clientX;
+    dragStartPos = pos;
+    lastDragX    = e.clientX;
+    lastDragT    = performance.now();
+    velocity     = 0;
+    track.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', e=>{
+    if(!dragActive) return;
+    const dx = e.clientX - dragStartX;
+    pos = dragStartPos + dx;
+    wrap(pos);
+    // 속도 계산 (관성용)
+    const now = performance.now();
+    velocity = (e.clientX - lastDragX) / Math.max(now - lastDragT, 1) * 16;
+    lastDragX = e.clientX;
+    lastDragT = now;
+  });
+  window.addEventListener('mouseup', e=>{
+    if(!dragActive) return;
+    dragActive = false;
+    track.style.cursor = 'pointer';
+    // 드래그가 5px 이하 → 클릭으로 간주
+    if(Math.abs(e.clientX - dragStartX) < 5) return;
+    // 관성 적용 (속도 제한)
+    velocity = Math.max(-12, Math.min(12, velocity));
+  });
+
+  // ── 드래그 (터치) ──
+  track.addEventListener('touchstart', e=>{
+    dragActive   = true;
+    dragStartX   = e.touches[0].clientX;
+    dragStartPos = pos;
+    lastDragX    = dragStartX;
+    lastDragT    = performance.now();
+    velocity     = 0;
+  }, { passive: true });
+  track.addEventListener('touchmove', e=>{
+    if(!dragActive) return;
+    const dx = e.touches[0].clientX - dragStartX;
+    pos = dragStartPos + dx;
+    wrap(pos);
+    const now = performance.now();
+    velocity = (e.touches[0].clientX - lastDragX) / Math.max(now - lastDragT, 1) * 16;
+    lastDragX = e.touches[0].clientX;
+    lastDragT = now;
+  }, { passive: true });
+  track.addEventListener('touchend', e=>{
+    dragActive = false;
+    velocity = Math.max(-12, Math.min(12, velocity));
+  });
+
+  // ── 호버: 정지 ──
+  cards.forEach(card=>{
+    card.addEventListener('mouseenter', ()=>{ if(!lockedModal) hovering = true; });
+    card.addEventListener('mouseleave', ()=>{ hovering = false; });
+  });
+
+  // ── 모달 ──
+  const overlay = document.createElement('div');
+  overlay.id = 'qmodal-overlay';
+  overlay.style.cssText = [
+    'position:fixed','inset:0','z-index:500',
+    'background:rgba(13,11,24,.72)','backdrop-filter:blur(6px)',
+    'display:flex','align-items:center','justify-content:center',
+    'opacity:0','pointer-events:none',
+    'transition:opacity .25s'
+  ].join(';');
+
+  const modal = document.createElement('div');
+  modal.id = 'qmodal';
+  modal.style.cssText = [
+    'background:#fff','border-radius:24px',
+    'padding:44px 44px 38px','max-width:640px','width:92%',
+    'box-shadow:0 24px 60px rgba(0,0,0,.28)',
+    'transform:scale(.92) translateY(16px)',
+    'transition:transform .28s cubic-bezier(.22,1,.36,1)',
+    'position:relative'
+  ].join(';');
+
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '&times;';
+  closeBtn.style.cssText = [
+    'position:absolute','top:16px','right:18px',
+    'width:30px','height:30px','border-radius:50%',
+    'border:none','background:#F2F4F6',
+    'font-size:18px','color:#8B95A1','cursor:pointer',
+    'display:flex','align-items:center','justify-content:center',
+    'line-height:1'
+  ].join(';');
+
+  const mTheme = document.createElement('span');
+  mTheme.style.cssText = 'display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;margin-bottom:18px;letter-spacing:.03em;';
+
+  const mText = document.createElement('p');
+  mText.style.cssText = [
+    "font-family:'Noto Serif KR',Georgia,serif",
+    'font-size:24px','font-weight:700','color:#191F28',
+    'line-height:1.9','word-break:keep-all'
+  ].join(';');
+
+  modal.appendChild(closeBtn);
+  modal.appendChild(mTheme);
+  modal.appendChild(mText);
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  function openModal(card){
+    // 드래그 중엔 열지 않음
+    if(dragActive) return;
+    lockedModal = true;
+    autoRun = false;
+
+    const themeEl = card.querySelector('.qtheme');
+    mTheme.textContent = themeEl ? themeEl.textContent : '';
+    mTheme.style.cssText = 'display:inline-flex;align-items:center;font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px;margin-bottom:18px;letter-spacing:.03em;';
+    if(themeEl && themeEl.classList.contains('t-dc')){
+      mTheme.style.background='#EEF2FF'; mTheme.style.color='#3B4DA0';
+    } else {
+      mTheme.style.background='#FFF0E8'; mTheme.style.color='#A0704A';
+    }
+    const pEl = card.querySelector('p');
+    mText.textContent = pEl ? pEl.textContent : '';
+
+    overlay.style.pointerEvents = 'all';
+    overlay.style.opacity = '1';
+    modal.style.transform = 'scale(1) translateY(0)';
+  }
+
+  function closeModal(){
+    overlay.style.opacity = '0';
+    modal.style.transform = 'scale(.92) translateY(16px)';
+    overlay.style.pointerEvents = 'none';
+    lockedModal = false;
+    autoRun = true;
+  }
+
+  cards.forEach(card=>{
+    card.addEventListener('click', e=>{
+      // 드래그로 판단되면 무시
+      if(Math.abs(e.clientX - dragStartX) > 5) return;
+      openModal(card);
+    });
+  });
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+})();
+</script>
+</body>
+</html>
