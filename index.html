@@ -25,19 +25,19 @@ nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.94);backdrop-
 
 /* ── HERO (SVG 추상 배경) ── */
 .hero{
-  position:relative;min-height:420px;
+  position:relative;min-height:600px;
   display:flex;align-items:center;justify-content:center;
   overflow:hidden;
   background:#0D0B18;
 }
 .hero-svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,11,24,.82) 0%,rgba(13,11,24,.55) 50%,rgba(13,11,24,.78) 100%);}
-.hero-ct{position:relative;z-index:1;text-align:center;padding:56px 40px;}
-.hero-ey{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:rgba(255,255,255,.85);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:100px;letter-spacing:.08em;margin-bottom:18px;backdrop-filter:blur(8px);}
+.hero-ct{position:relative;z-index:1;text-align:center;padding:80px 60px;}
+.hero-ey{display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:600;color:rgba(255,255,255,.85);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:100px;letter-spacing:.08em;margin-bottom:24px;backdrop-filter:blur(8px);padding:8px 20px;}
 .hero-ey::before{content:'';width:6px;height:6px;background:var(--rg);border-radius:50%;flex-shrink:0;}
-.hero-ttl{font-size:40px;font-weight:800;color:#fff;line-height:1.18;letter-spacing:-.025em;margin-bottom:12px;}
+.hero-ttl{font-size:80px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:18px;}
 .hero-ttl em{color:var(--rg);font-style:normal;}
-.hero-sub{font-size:14px;color:rgba(255,255,255,.5);letter-spacing:.04em;font-weight:400;}
+.hero-sub{font-size:22px;color:rgba(255,255,255,.6);letter-spacing:.06em;font-weight:400;margin-top:4px;}
 
 /* ── 어록 섹션 ── */
 .sec{max-width:1100px;margin:0 auto;padding:48px 40px 0;}
@@ -169,7 +169,26 @@ textarea.tall{height:80px;}
 .enote{font-size:13px;color:var(--g2);line-height:1.65;padding-left:12px;}
 .efree{font-size:12px;color:var(--g3);line-height:1.6;padding-left:12px;margin-top:5px;border-left:3px solid var(--g4);}
 
-.erec-row{display:flex;align-items:center;justify-content:flex-end;margin-top:10px;padding-top:10px;border-top:1px solid var(--g4);}
+.erec-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--g4);}
+.btn-edit{
+  display:inline-flex;align-items:center;gap:4px;
+  font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
+  padding:5px 12px;border-radius:100px;
+  border:1.5px solid var(--g4);background:var(--wh);color:var(--g2);
+  cursor:pointer;transition:all .18s;
+}
+.btn-edit svg{width:12px;height:12px;fill:none;stroke:var(--g2);stroke-width:2;transition:stroke .18s;}
+.btn-edit:hover{border-color:var(--rg-m);background:var(--rg-l);color:var(--rg-d);}
+.btn-edit:hover svg{stroke:var(--rg-d);}
+/* 인라인 수정 폼 */
+.edit-form{margin-top:10px;padding:14px;background:var(--g5);border-radius:var(--r2);border:1.5px solid var(--rg-m);}
+.edit-form textarea{font-size:14px;height:64px;margin-bottom:6px;background:var(--wh);}
+.edit-form .edit-note{height:52px;}
+.edit-form .edit-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:6px;}
+.btn-edit-save{background:var(--rg);color:#fff;font-family:'Pretendard',sans-serif;font-size:12px;font-weight:700;padding:7px 16px;border-radius:var(--r1);border:none;cursor:pointer;transition:background .15s;}
+.btn-edit-save:hover{background:var(--rg-d);}
+.btn-edit-cancel{background:var(--wh);color:var(--g2);font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;padding:7px 14px;border-radius:var(--r1);border:1.5px solid var(--g4);cursor:pointer;transition:all .15s;}
+.btn-edit-cancel:hover{border-color:var(--g3);}
 .btn-rec{
   display:inline-flex;align-items:center;gap:5px;
   font-family:'Pretendard',sans-serif;font-size:12px;font-weight:600;
@@ -198,11 +217,33 @@ textarea.tall{height:80px;}
 @media(max-width:840px){
   .two-col{grid-template-columns:1fr;}
   .fc{position:static;}
-  .hero-ttl{font-size:26px;}
+  .hero-ttl{font-size:40px;}
   nav,.main,.sec{padding-left:20px;padding-right:20px;}
   .hero-ct{padding:50px 20px;}
   .qs-outer{margin:0 -20px;}
 }
+
+/* ── 테마 필터 버튼 ── */
+.qs-filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.qs-filter{
+  font-family:'Pretendard',sans-serif;
+  font-size:12px;font-weight:700;
+  padding:5px 14px;border-radius:100px;
+  border:1.5px solid transparent;
+  cursor:pointer;transition:all .2s;letter-spacing:.02em;
+}
+.qs-filter.all{background:var(--g5);color:var(--g2);border-color:var(--g4);}
+.qs-filter.all.active{background:var(--bk);color:#fff;border-color:var(--bk);}
+.qs-filter.all:not(.active):hover{background:var(--g4);color:var(--g1);}
+.qs-filter.f-dc{background:#EEF2FF;color:#3B4DA0;border-color:#C5CCF0;}
+.qs-filter.f-dc.active,.qs-filter.f-dc:hover{background:#3B4DA0;color:#fff;border-color:#3B4DA0;}
+.qs-filter.f-rnd{background:var(--rg-l);color:var(--rg-d);border-color:var(--rg-m);}
+.qs-filter.f-rnd.active,.qs-filter.f-rnd:hover{background:var(--rg);color:#fff;border-color:var(--rg);}
+.qs-filter.inactive{background:var(--g5)!important;color:var(--g3)!important;border-color:var(--g4)!important;}
+/* 카드 hide 트랜지션 */
+.qcard.hidden{opacity:0!important;pointer-events:none!important;
+  width:0!important;min-width:0!important;padding:0!important;
+  margin:0!important;border:none!important;overflow:hidden!important;}
 </style>
 </head>
 <body>
@@ -218,65 +259,109 @@ textarea.tall{height:80px;}
 <!-- ── HERO ── -->
 <section class="hero" id="hero-section">
   <!-- 추상적 비전 SVG 배경 -->
-  <svg class="hero-svg" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <svg class="hero-svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <radialGradient id="rg1" cx="20%" cy="40%" r="60%">
-        <stop offset="0%" stop-color="#3B1F6A" stop-opacity="1"/>
-        <stop offset="100%" stop-color="#0D0B18" stop-opacity="1"/>
+      <!-- 배경 그라디언트 -->
+      <radialGradient id="rg1" cx="18%" cy="35%" r="65%">
+        <stop offset="0%" stop-color="#2D1160"/>
+        <stop offset="100%" stop-color="#080614"/>
       </radialGradient>
-      <radialGradient id="rg2" cx="80%" cy="60%" r="50%">
-        <stop offset="0%" stop-color="#6B2A1A" stop-opacity=".8"/>
-        <stop offset="100%" stop-color="#0D0B18" stop-opacity="0"/>
+      <radialGradient id="rg2" cx="82%" cy="65%" r="55%">
+        <stop offset="0%" stop-color="#7A2A18" stop-opacity=".9"/>
+        <stop offset="100%" stop-color="#080614" stop-opacity="0"/>
       </radialGradient>
-      <radialGradient id="rg3" cx="50%" cy="20%" r="40%">
-        <stop offset="0%" stop-color="#1A2E5A" stop-opacity=".7"/>
-        <stop offset="100%" stop-color="#0D0B18" stop-opacity="0"/>
+      <radialGradient id="rg3" cx="50%" cy="15%" r="45%">
+        <stop offset="0%" stop-color="#152658" stop-opacity=".8"/>
+        <stop offset="100%" stop-color="#080614" stop-opacity="0"/>
       </radialGradient>
-      <filter id="blur1"><feGaussianBlur stdDeviation="2"/></filter>
-      <filter id="blur2"><feGaussianBlur stdDeviation="1.2"/></filter>
+      <!-- 중앙 로즈골드 글로우 -->
+      <radialGradient id="rg-center" cx="50%" cy="48%" r="30%">
+        <stop offset="0%" stop-color="#C9956C" stop-opacity=".18"/>
+        <stop offset="100%" stop-color="#C9956C" stop-opacity="0"/>
+      </radialGradient>
+      <!-- 좌하단 보조 글로우 -->
+      <radialGradient id="rg-left" cx="10%" cy="80%" r="35%">
+        <stop offset="0%" stop-color="#4A1A5A" stop-opacity=".6"/>
+        <stop offset="100%" stop-color="#080614" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="blur1"><feGaussianBlur stdDeviation="3"/></filter>
+      <filter id="blur2"><feGaussianBlur stdDeviation="18"/></filter>
+      <filter id="blur3"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     </defs>
+
     <!-- 배경 레이어 -->
-    <rect width="1440" height="420" fill="url(#rg1)"/>
-    <rect width="1440" height="420" fill="url(#rg2)"/>
-    <rect width="1440" height="420" fill="url(#rg3)"/>
+    <rect width="1440" height="600" fill="url(#rg1)"/>
+    <rect width="1440" height="600" fill="url(#rg2)"/>
+    <rect width="1440" height="600" fill="url(#rg3)"/>
+    <rect width="1440" height="600" fill="url(#rg-center)"/>
+    <rect width="1440" height="600" fill="url(#rg-left)"/>
 
-    <!-- 수평선 / 지평선 느낌 -->
-    <line x1="0" y1="280" x2="1440" y2="260" stroke="rgba(201,149,108,.15)" stroke-width="1"/>
-    <line x1="0" y1="300" x2="1440" y2="285" stroke="rgba(201,149,108,.08)" stroke-width="1"/>
+    <!-- 격자 무늬 (미세 원근감) -->
+    <g opacity=".04" stroke="rgba(201,149,108,1)" stroke-width=".8">
+      <line x1="0" y1="150" x2="1440" y2="150"/><line x1="0" y1="250" x2="1440" y2="250"/>
+      <line x1="0" y1="350" x2="1440" y2="350"/><line x1="0" y1="450" x2="1440" y2="450"/>
+      <line x1="200" y1="0" x2="200" y2="600"/><line x1="400" y1="0" x2="400" y2="600"/>
+      <line x1="600" y1="0" x2="600" y2="600"/><line x1="800" y1="0" x2="800" y2="600"/>
+      <line x1="1000" y1="0" x2="1000" y2="600"/><line x1="1200" y1="0" x2="1200" y2="600"/>
+    </g>
 
-    <!-- 원형 빛 오라 -->
-    <circle cx="720" cy="210" r="280" fill="none" stroke="rgba(201,149,108,.06)" stroke-width="1.5"/>
-    <circle cx="720" cy="210" r="200" fill="none" stroke="rgba(201,149,108,.1)" stroke-width="1"/>
-    <circle cx="720" cy="210" r="120" fill="none" stroke="rgba(201,149,108,.14)" stroke-width="1"/>
-    <circle cx="720" cy="210" r="60" fill="rgba(201,149,108,.06)"/>
+    <!-- 원형 빛 오라 (중앙 확장) -->
+    <circle cx="720" cy="290" r="380" fill="none" stroke="rgba(201,149,108,.04)" stroke-width="1.5"/>
+    <circle cx="720" cy="290" r="300" fill="none" stroke="rgba(201,149,108,.07)" stroke-width="1"/>
+    <circle cx="720" cy="290" r="220" fill="none" stroke="rgba(201,149,108,.11)" stroke-width="1"/>
+    <circle cx="720" cy="290" r="150" fill="none" stroke="rgba(201,149,108,.16)" stroke-width="1"/>
+    <circle cx="720" cy="290" r="90" fill="none" stroke="rgba(201,149,108,.22)" stroke-width="1.5"/>
+    <circle cx="720" cy="290" r="42" fill="rgba(201,149,108,.12)" filter="url(#blur3)"/>
 
-    <!-- 떠오르는 빛 줄기 (위로 뻗음) -->
-    <line x1="720" y1="210" x2="580" y2="0" stroke="rgba(201,149,108,.1)" stroke-width="1.5" filter="url(#blur1)"/>
-    <line x1="720" y1="210" x2="720" y2="0" stroke="rgba(201,149,108,.18)" stroke-width="1.5" filter="url(#blur1)"/>
-    <line x1="720" y1="210" x2="860" y2="0" stroke="rgba(201,149,108,.1)" stroke-width="1.5" filter="url(#blur1)"/>
-    <line x1="720" y1="210" x2="480" y2="0" stroke="rgba(180,130,90,.07)" stroke-width="1"/>
-    <line x1="720" y1="210" x2="960" y2="0" stroke="rgba(180,130,90,.07)" stroke-width="1"/>
+    <!-- 빛 줄기 (방사형 확장) -->
+    <line x1="720" y1="290" x2="720" y2="0"   stroke="rgba(201,149,108,.22)" stroke-width="2" filter="url(#blur1)"/>
+    <line x1="720" y1="290" x2="560" y2="0"   stroke="rgba(201,149,108,.14)" stroke-width="1.5" filter="url(#blur1)"/>
+    <line x1="720" y1="290" x2="880" y2="0"   stroke="rgba(201,149,108,.14)" stroke-width="1.5" filter="url(#blur1)"/>
+    <line x1="720" y1="290" x2="400" y2="0"   stroke="rgba(201,149,108,.07)" stroke-width="1"/>
+    <line x1="720" y1="290" x2="1040" y2="0"  stroke="rgba(201,149,108,.07)" stroke-width="1"/>
+    <line x1="720" y1="290" x2="200" y2="0"   stroke="rgba(201,149,108,.04)" stroke-width=".8"/>
+    <line x1="720" y1="290" x2="1240" y2="0"  stroke="rgba(201,149,108,.04)" stroke-width=".8"/>
+    <line x1="720" y1="290" x2="0"    y2="120" stroke="rgba(201,149,108,.03)" stroke-width=".8"/>
+    <line x1="720" y1="290" x2="1440" y2="120" stroke="rgba(201,149,108,.03)" stroke-width=".8"/>
 
-    <!-- 작은 별 파티클 -->
-    <circle cx="200" cy="60" r="1.5" fill="rgba(255,255,255,.5)"/>
-    <circle cx="340" cy="130" r="1" fill="rgba(255,255,255,.35)"/>
-    <circle cx="130" cy="180" r="1.2" fill="rgba(255,255,255,.4)"/>
-    <circle cx="1100" cy="80" r="1.5" fill="rgba(255,255,255,.5)"/>
-    <circle cx="1250" cy="150" r="1" fill="rgba(255,255,255,.3)"/>
-    <circle cx="1320" cy="200" r="1.2" fill="rgba(255,255,255,.4)"/>
-    <circle cx="850" cy="50" r="1" fill="rgba(255,255,255,.3)"/>
-    <circle cx="450" cy="90" r="1.2" fill="rgba(255,255,255,.35)"/>
-    <circle cx="980" cy="110" r="1.5" fill="rgba(255,255,255,.45)"/>
-    <circle cx="60" cy="100" r="1" fill="rgba(255,255,255,.3)"/>
-    <circle cx="1380" cy="70" r="1.2" fill="rgba(255,255,255,.4)"/>
+    <!-- 수평 빛 띠 -->
+    <line x1="0" y1="370" x2="1440" y2="350" stroke="rgba(201,149,108,.12)" stroke-width="1.5"/>
+    <line x1="0" y1="390" x2="1440" y2="375" stroke="rgba(201,149,108,.06)" stroke-width="1"/>
+    <line x1="0" y1="410" x2="1440" y2="400" stroke="rgba(201,149,108,.03)" stroke-width="1"/>
 
-    <!-- 하단 산 실루엣 느낌 -->
-    <path d="M0 360 Q180 290 360 320 Q540 350 720 300 Q900 250 1080 310 Q1260 360 1440 340 L1440 420 L0 420Z" fill="rgba(10,8,18,.6)"/>
-    <path d="M0 390 Q240 360 480 375 Q720 390 960 365 Q1200 340 1440 370 L1440 420 L0 420Z" fill="rgba(10,8,18,.8)"/>
+    <!-- 큰 별/행성 포인트 -->
+    <circle cx="180" cy="80"  r="3"   fill="rgba(255,255,255,.7)" filter="url(#glow)"/>
+    <circle cx="1260" cy="110" r="2.5" fill="rgba(255,255,255,.6)" filter="url(#glow)"/>
+    <circle cx="340" cy="160" r="1.8" fill="rgba(255,220,180,.8)" filter="url(#glow)"/>
+    <circle cx="1050" cy="75"  r="2"   fill="rgba(255,220,180,.7)" filter="url(#glow)"/>
+    <circle cx="90"  cy="240" r="1.5" fill="rgba(255,255,255,.5)"/>
+    <circle cx="1360" cy="180" r="1.5" fill="rgba(255,255,255,.5)"/>
 
-    <!-- 로즈골드 포인트 글로우 -->
-    <ellipse cx="720" cy="310" rx="400" ry="40" fill="rgba(201,149,108,.04)"/>
-    <ellipse cx="720" cy="210" rx="80" ry="80" fill="rgba(201,149,108,.08)" filter="url(#blur2)"/>
+    <!-- 보통 별들 (다수) -->
+    <circle cx="240" cy="55"  r="1.2" fill="rgba(255,255,255,.45)"/>
+    <circle cx="420" cy="95"  r="1"   fill="rgba(255,255,255,.35)"/>
+    <circle cx="130" cy="175" r="1.2" fill="rgba(255,255,255,.4)"/>
+    <circle cx="580" cy="55"  r="1"   fill="rgba(255,255,255,.3)"/>
+    <circle cx="870" cy="45"  r="1.2" fill="rgba(255,255,255,.4)"/>
+    <circle cx="990" cy="115" r="1"   fill="rgba(255,255,255,.35)"/>
+    <circle cx="1140" cy="65"  r="1.2" fill="rgba(255,255,255,.45)"/>
+    <circle cx="1310" cy="145" r="1"   fill="rgba(255,255,255,.3)"/>
+    <circle cx="460" cy="130" r="1"   fill="rgba(255,255,255,.3)"/>
+    <circle cx="700" cy="70"  r="1"   fill="rgba(255,255,255,.3)"/>
+    <circle cx="1190" cy="210" r="1.2" fill="rgba(255,255,255,.35)"/>
+    <circle cx="55"  cy="130" r="1"   fill="rgba(255,255,255,.3)"/>
+    <circle cx="1400" cy="95"  r="1.2" fill="rgba(255,255,255,.4)"/>
+    <circle cx="780" cy="120" r="1"   fill="rgba(255,255,255,.3)"/>
+
+    <!-- 하단 산 실루엣 (더 극적으로) -->
+    <path d="M0 460 Q120 380 280 410 Q440 440 600 390 Q720 350 840 380 Q960 410 1120 370 Q1280 330 1440 390 L1440 600 L0 600Z" fill="rgba(6,4,14,.7)"/>
+    <path d="M0 510 Q180 480 360 495 Q540 510 720 490 Q900 470 1080 485 Q1260 500 1440 488 L1440 600 L0 600Z" fill="rgba(6,4,14,.85)"/>
+    <path d="M0 555 Q360 540 720 548 Q1080 556 1440 542 L1440 600 L0 600Z" fill="rgba(6,4,14,.95)"/>
+
+    <!-- 하단 로즈골드 글로우 반사 -->
+    <ellipse cx="720" cy="430" rx="500" ry="55" fill="rgba(201,149,108,.05)" filter="url(#blur3)"/>
+    <ellipse cx="720" cy="290" rx="120" ry="120" fill="rgba(201,149,108,.10)" filter="url(#blur2)"/>
   </svg>
   <div class="hero-ov"></div>
   <div class="hero-ct">
@@ -289,7 +374,12 @@ textarea.tall{height:80px;}
 <!-- ── 어록 섹션 ── -->
 <div class="sec">
   <div class="sec-hd">
-    <span class="sec-ttl">위원장님 피드백 및 과거 어록</span>
+    <span class="sec-ttl">피드백 및 신약관련 어록</span>
+    <div class="qs-filters" id="qs-filters">
+      <button class="qs-filter all" data-filter="all" onclick="filterCards('all')">전체</button>
+      <button class="qs-filter f-dc" data-filter="dc" onclick="filterCards('dc')">디코드 피드백</button>
+      <button class="qs-filter f-rnd" data-filter="rnd" onclick="filterCards('rnd')">신약개발</button>
+    </div>
     <div class="qs-nav" id="qs-nav">
       <button class="qs-btn" id="qs-prev" title="이전">
         <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 4 7 10 13 16"/></svg>
@@ -440,24 +530,116 @@ textarea.tall{height:80px;}
 <div class="toast" id="toast"></div>
 
 <script>
-/* ── 스토리지 ── */
-const SK='vision2032-v5';
+/* ════════════════════════════════════════════
+   Supabase 설정
+   - SUPA_URL / SUPA_KEY 를 실제 값으로 교체하세요
+   - 테이블: vision2032_entries, vision2032_votes
+   ════════════════════════════════════════════ */
+const SUPA_URL = 'YOUR_SUPABASE_URL';   // 예: https://xxxx.supabase.co
+const SUPA_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const TBL_ENTRIES = 'vision2032_entries';
+const TBL_VOTES   = 'vision2032_votes';
+
+const USE_SUPA = (SUPA_URL !== 'YOUR_SUPABASE_URL');
+
+/* ── Supabase REST helpers ── */
+async function supaSelect(table, query=''){
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}?${query}`, {
+    headers:{ apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}` }
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+async function supaInsert(table, row){
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
+    method:'POST',
+    headers:{ apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}`,
+              'Content-Type':'application/json', Prefer:'return=representation' },
+    body: JSON.stringify(row)
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+async function supaUpdate(table, id, patch){
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`, {
+    method:'PATCH',
+    headers:{ apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}`,
+              'Content-Type':'application/json', Prefer:'return=representation' },
+    body: JSON.stringify(patch)
+  });
+  if(!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+async function supaDelete(table, query){
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}?${query}`, {
+    method:'DELETE',
+    headers:{ apikey:SUPA_KEY, Authorization:`Bearer ${SUPA_KEY}` }
+  });
+  if(!res.ok) throw new Error(await res.text());
+}
+
+/* ── localStorage fallback ── */
+const LS_KEY     = 'vision2032-v5';
+const LS_VOT_KEY = 'vision2032-votes-v1';
+
+/* ── 통합 CRUD ── */
+async function storageGet(){
+  if(USE_SUPA){
+    return supaSelect(TBL_ENTRIES, 'select=*&order=created_at.desc');
+  }
+  try{
+    if(window.storage){ const r=await window.storage.get(LS_KEY,true); return r?.value?JSON.parse(r.value):[]; }
+  }catch{}
+  try{ const v=localStorage.getItem(LS_KEY); return v?JSON.parse(v):[]; }catch{ return []; }
+}
+async function storageInsert(entry){
+  if(USE_SUPA){
+    const rows = await supaInsert(TBL_ENTRIES, entry);
+    return Array.isArray(rows)?rows[0]:rows;
+  }
+  const cur = await storageGet();
+  cur.push(entry);
+  try{
+    if(window.storage){ await window.storage.set(LS_KEY,JSON.stringify(cur),true); return entry; }
+  }catch{}
+  try{ localStorage.setItem(LS_KEY,JSON.stringify(cur)); }catch{}
+  return entry;
+}
+async function storagePatchEntry(id, patch){
+  if(USE_SUPA){ return supaUpdate(TBL_ENTRIES, id, patch); }
+  const cur = await storageGet();
+  const idx = cur.findIndex(e=>e.id===id);
+  if(idx>=0) Object.assign(cur[idx], patch);
+  try{
+    if(window.storage){ await window.storage.set(LS_KEY,JSON.stringify(cur),true); return; }
+  }catch{}
+  try{ localStorage.setItem(LS_KEY,JSON.stringify(cur)); }catch{}
+}
+
+/* ── 추천 CRUD ── */
+async function votesGet(){ // 내 기기의 투표 목록 (항상 로컬)
+  try{
+    if(window.storage){ const r=await window.storage.get(LS_VOT_KEY,false); return r?.value?JSON.parse(r.value):[]; }
+  }catch{}
+  try{ const v=localStorage.getItem(LS_VOT_KEY); return v?JSON.parse(v):[]; }catch{ return []; }
+}
+async function votesSave(arr){
+  try{
+    if(window.storage){ await window.storage.set(LS_VOT_KEY,JSON.stringify(arr),false); return; }
+  }catch{}
+  try{ localStorage.setItem(LS_VOT_KEY,JSON.stringify(arr)); }catch{}
+}
+
+/* ── 상태 ── */
 let entries=[];
+let myVotes=[];
+let myIdentity='';
 let bseq=0;
 
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function fmt(iso){const d=new Date(iso);return `${d.getMonth()+1}.${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;}
 function toast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
 function setStatus(msg){document.getElementById('sub-status').textContent=msg;}
-
-async function storageGet(){
-  try{if(window.storage){const r=await window.storage.get(SK,true);return r?.value?JSON.parse(r.value):[];}}catch{}
-  try{const v=localStorage.getItem(SK);return v?JSON.parse(v):[];}catch{return[];}
-}
-async function storageSet(data){
-  try{if(window.storage){await window.storage.set(SK,JSON.stringify(data),true);return;}}catch{}
-  try{localStorage.setItem(SK,JSON.stringify(data));}catch{}
-}
 
 /* ── 블록 관리 ── */
 function addBlock(isDefault){
@@ -538,24 +720,24 @@ async function submitAll(){
   setStatus('');
 
   try{
-    const cur=await storageGet();
     const now=new Date().toISOString();
     const newIds=[];
     for(let i=0;i<blocks.length;i++){
-      const e={
-        id:Date.now().toString()+i,
+      const row={
+        id: USE_SUPA ? undefined : (Date.now().toString()+i), // Supabase는 uuid 자동생성
         created_at:now,
-        team,name,
+        team, name,
         vision:blocks[i].vision,
         note:blocks[i].note,
         free:i===0?free:'',
-        seq:i+1,total:blocks.length
+        seq:i+1,
+        total:blocks.length,
+        rec_count:0
       };
-      cur.push(e);
-      newIds.push(e.id);
+      if(!USE_SUPA) row.id = Date.now().toString()+i; // fallback id
+      const saved = await storageInsert(row);
+      newIds.push(saved?.id || row.id);
     }
-    await storageSet(cur);
-    entries=cur;
 
     // 폼 초기화
     document.getElementById('f-team').value='';
@@ -566,61 +748,63 @@ async function submitAll(){
     bseq=0;
     addBlock(true);addBlock(true);
 
+    // 최신 데이터 다시 불러와서 렌더
+    entries = await storageGet();
     myIdentity=team+'::'+name;
     renderList(newIds);
     setStatus(blocks.length+'건 제출 완료');
     toast(blocks.length>1?`${blocks.length}건의 문장이 제출되었습니다. 감사합니다.`:'제출이 완료되었습니다. 감사합니다.');
     setTimeout(()=>document.getElementById('elist').scrollIntoView({behavior:'smooth',block:'start'}),200);
   }catch(err){
-    toast('저장 중 오류가 발생했습니다.');setStatus('오류 발생');
+    console.error(err);
+    toast('저장 중 오류가 발생했습니다. 콘솔을 확인해 주세요.');setStatus('오류 발생');
   }finally{
     btn.disabled=false;
     btn.innerHTML='<svg viewBox="0 0 14 14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M2 7l4-4 4 4M6 3v8M3 12h8"/></svg>제출하기';
   }
 }
 
-/* ── 추천 스토리지 키 ── */
-const REC_SK = 'vision2032-votes-v1';
-let myVotes = []; // 내가 추천한 entry id 목록
-
+/* ── 추천 ── */
 async function loadVotes(){
-  try{
-    if(window.storage){ const r=await window.storage.get(REC_SK,false); myVotes=r?.value?JSON.parse(r.value):[]; return; }
-  }catch{}
-  try{ const v=localStorage.getItem(REC_SK); myVotes=v?JSON.parse(v):[]; }catch{ myVotes=[]; }
+  myVotes = await votesGet();
 }
-async function saveVotes(){
-  try{ if(window.storage){ await window.storage.set(REC_SK,JSON.stringify(myVotes),false); return; } }catch{}
-  try{ localStorage.setItem(REC_SK,JSON.stringify(myVotes)); }catch{}
-}
-
-/* 현재 제출자 식별 (마지막 제출한 team+name) */
-let myIdentity = ''; // "team::name" 형식
 
 /* ── 추천 토글 ── */
 async function toggleRec(entryId){
   const alreadyVoted = myVotes.includes(entryId);
   const remainVotes  = 2 - myVotes.length;
 
-  if(alreadyVoted){
-    // 추천 취소
-    myVotes = myVotes.filter(id=>id!==entryId);
-    const cur = await storageGet();
-    const idx = cur.findIndex(e=>e.id===entryId);
-    if(idx>=0){ cur[idx].recCount = Math.max(0,(cur[idx].recCount||0)-1); }
-    await storageSet(cur);
-    entries=cur;
-  } else {
-    if(remainVotes<=0){ toast('추천은 최대 2개까지 가능합니다.'); return; }
-    myVotes.push(entryId);
-    const cur = await storageGet();
-    const idx = cur.findIndex(e=>e.id===entryId);
-    if(idx>=0){ cur[idx].recCount = (cur[idx].recCount||0)+1; }
-    await storageSet(cur);
-    entries=cur;
+  try{
+    if(alreadyVoted){
+      myVotes = myVotes.filter(id=>id!==entryId);
+      // rec_count -1
+      const target = entries.find(e=>e.id===entryId);
+      const newCnt = Math.max(0,(target?.rec_count||target?.recCount||0)-1);
+      if(USE_SUPA){
+        await supaUpdate(TBL_ENTRIES, entryId, {rec_count: newCnt});
+      } else {
+        await storagePatchEntry(entryId, {rec_count:newCnt, recCount:newCnt});
+      }
+    } else {
+      if(remainVotes<=0){ toast('추천은 최대 2개까지 가능합니다.'); return; }
+      myVotes.push(entryId);
+      // rec_count +1
+      const target = entries.find(e=>e.id===entryId);
+      const newCnt = (target?.rec_count||target?.recCount||0)+1;
+      if(USE_SUPA){
+        await supaUpdate(TBL_ENTRIES, entryId, {rec_count: newCnt});
+      } else {
+        await storagePatchEntry(entryId, {rec_count:newCnt, recCount:newCnt});
+      }
+    }
+    await votesSave(myVotes);
+    // 최신 데이터 반영
+    entries = await storageGet();
+    renderList();
+  } catch(err){
+    console.error(err);
+    toast('추천 처리 중 오류가 발생했습니다.');
   }
-  await saveVotes();
-  renderList();
 }
 
 /* ── 렌더 ── */
@@ -639,7 +823,7 @@ function renderList(hlIds=[]){
   el.innerHTML=sorted.map(e=>{
     const isOwn    = myIdentity && (e.team+'::'+e.name===myIdentity);
     const voted    = myVotes.includes(e.id);
-    const recCount = e.recCount||0;
+    const recCount = e.rec_count||e.recCount||0;
     const canVote  = !isOwn && (voted || remainVotes>0);
 
     const recBtn = isOwn
@@ -656,8 +840,15 @@ function renderList(hlIds=[]){
            ${voted?'추천함':'추천'}
          </button>`;
 
+    const editBtn = isOwn
+      ? `<button class="btn-edit" onclick="toggleEditForm('${e.id}')" title="내 문장 수정">
+           <svg viewBox="0 0 14 14"><path d="M10 2l2 2-8 8H2v-2L10 2z"/><line x1="8" y1="4" x2="10" y2="6"/></svg>
+           수정
+         </button>`
+      : '';
+
     return `
-    <div class="ecard${hlIds.includes(e.id)?' flash':''}">
+    <div class="ecard${hlIds.includes(e.id)?' flash':''}" id="ecard-${e.id}">
       <div class="emeta">
         <span class="enum">#${num--}</span>
         <span class="tag">${esc(e.team||'')}</span>
@@ -665,27 +856,177 @@ function renderList(hlIds=[]){
         ${e.total>1?`<span class="eseq">${e.seq}/${e.total}</span>`:''}
         <span class="etime">${fmt(e.created_at||e.ts)}</span>
       </div>
-      <p class="evis">${esc(e.vision)}</p>
-      ${e.note?`<p class="enote">${esc(e.note)}</p>`:''}
+      <p class="evis" id="evis-${e.id}">${esc(e.vision)}</p>
+      ${e.note?`<p class="enote" id="enote-${e.id}">${esc(e.note)}</p>`:`<p class="enote" id="enote-${e.id}" style="display:none"></p>`}
       ${e.free&&e.seq===1?`<p class="efree">자유의견: ${esc(e.free)}</p>`:''}
-      <div class="erec-row">${recBtn}</div>
+      <div id="editform-${e.id}" style="display:none">
+        <div class="edit-form">
+          <div style="font-size:11px;font-weight:700;color:var(--rg-d);margin-bottom:8px;">문장 수정</div>
+          <textarea id="edit-v-${e.id}" maxlength="100">${esc(e.vision)}</textarea>
+          <textarea id="edit-n-${e.id}" class="edit-note" maxlength="200" placeholder="제안 배경 (선택)">${esc(e.note||'')}</textarea>
+          <div class="edit-actions">
+            <button class="btn-edit-cancel" onclick="toggleEditForm('${e.id}')">취소</button>
+            <button class="btn-edit-save" onclick="saveEdit('${e.id}')">저장</button>
+          </div>
+        </div>
+      </div>
+      <div class="erec-row">
+        <div>${editBtn}</div>
+        <div>${recBtn}</div>
+      </div>
     </div>
   `;
   }).join('');
 }
 
+/* ── 수정 폼 토글 ── */
+function toggleEditForm(id){
+  const form = document.getElementById('editform-'+id);
+  if(!form) return;
+  const isOpen = form.style.display !== 'none';
+  form.style.display = isOpen ? 'none' : 'block';
+  if(!isOpen){
+    // 열 때 현재 값으로 채우기
+    const entry = entries.find(e=>e.id===id);
+    if(entry){
+      const vEl = document.getElementById('edit-v-'+id);
+      const nEl = document.getElementById('edit-n-'+id);
+      if(vEl) vEl.value = entry.vision||'';
+      if(nEl) nEl.value = entry.note||'';
+    }
+    // 스크롤
+    form.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+
+/* ── 수정 저장 ── */
+async function saveEdit(id){
+  const vEl = document.getElementById('edit-v-'+id);
+  const nEl = document.getElementById('edit-n-'+id);
+  if(!vEl) return;
+  const newVision = vEl.value.trim();
+  const newNote   = nEl ? nEl.value.trim() : '';
+  if(!newVision){ toast('문장을 입력해 주세요.'); return; }
+
+  const saveBtn = document.querySelector(`#editform-${id} .btn-edit-save`);
+  if(saveBtn){ saveBtn.disabled=true; saveBtn.textContent='저장 중...'; }
+
+  try{
+    const patch = { vision: newVision, note: newNote };
+    if(USE_SUPA){
+      await supaUpdate(TBL_ENTRIES, id, patch);
+    } else {
+      await storagePatchEntry(id, patch);
+    }
+    // 로컬 반영
+    const idx = entries.findIndex(e=>e.id===id);
+    if(idx>=0) Object.assign(entries[idx], patch);
+    // 폼 닫기
+    const form = document.getElementById('editform-'+id);
+    if(form) form.style.display='none';
+    // 텍스트 즉시 반영 (DOM 직접 업데이트)
+    const visEl  = document.getElementById('evis-'+id);
+    const noteEl = document.getElementById('enote-'+id);
+    if(visEl)  visEl.textContent  = newVision;
+    if(noteEl){ noteEl.textContent = newNote; noteEl.style.display = newNote?'':'none'; }
+    toast('문장이 수정되었습니다.');
+  } catch(err){
+    console.error(err);
+    toast('수정 중 오류가 발생했습니다.');
+  } finally {
+    if(saveBtn){ saveBtn.disabled=false; saveBtn.textContent='저장'; }
+  }
+}
+
 /* ── 초기화 ── */
-// 기본 2개 블록
 addBlock(true);
 addBlock(true);
 
-loadVotes().then(()=>storageGet().then(data=>{entries=data;renderList();}));
+(async()=>{
+  await loadVotes();
+  entries = await storageGet();
+  renderList();
+  if(USE_SUPA){
+    // Supabase Realtime 폴링 (10초)
+    setInterval(async()=>{
+      const before=entries.length;
+      entries=await storageGet();
+      if(entries.length>before) toast(`새로운 문장 ${entries.length-before}건이 등록되었습니다.`);
+      renderList();
+    },10000);
+  } else {
+    setInterval(async()=>{
+      const before=entries.length;
+      entries=await storageGet();
+      if(entries.length>before){renderList();toast(`새로운 문장 ${entries.length-before}건이 등록되었습니다.`);}
+    },12000);
+  }
+})();
 
-setInterval(async()=>{
-  const before=entries.length;
-  const data=await storageGet();
-  if(data.length>before){entries=data;renderList();toast(`새로운 문장 ${data.length-before}건이 등록되었습니다.`);}
-},12000);
+/* ── Supabase 연결 상태 표시 ── */
+(function(){
+  const bar=document.createElement('div');
+  bar.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:9998;padding:6px 16px;font-size:11px;font-weight:600;text-align:center;letter-spacing:.04em;pointer-events:none;transition:opacity .4s;';
+  if(USE_SUPA){
+    bar.style.background='rgba(61,173,107,.92)';bar.style.color='#fff';
+    bar.textContent='Supabase 연결됨 — 실시간 동기화 활성';
+  } else {
+    bar.style.background='rgba(201,149,108,.92)';bar.style.color='#fff';
+    bar.textContent='로컬 스토리지 모드 — Supabase URL/KEY를 입력하면 실시간 공유가 활성화됩니다';
+  }
+  document.body.appendChild(bar);
+  setTimeout(()=>{ bar.style.opacity='0'; setTimeout(()=>bar.remove(),400); },5000);
+})();
+
+/* ── 테마 필터 ── */
+let currentFilter = 'all';
+
+function filterCards(filter){
+  currentFilter = filter;
+
+  // 버튼 active/inactive 상태
+  document.querySelectorAll('.qs-filter').forEach(btn => {
+    const f = btn.dataset.filter;
+    btn.classList.remove('active','inactive');
+    if(filter === 'all'){
+      if(f === 'all') btn.classList.add('active');
+    } else {
+      if(f === filter)  btn.classList.add('active');
+      else              btn.classList.add('inactive');
+    }
+  });
+
+  // SET 1 카드만 필터 (SET 2는 롤링 복제본 — 동기 처리)
+  const track = document.getElementById('qs-track');
+  if(!track) return;
+
+  // 카드 전체 순서 보존하되 보임/숨김 처리
+  // 양쪽 SET 모두 동일하게 처리
+  track.querySelectorAll('.qcard').forEach(card => {
+    const themeEl = card.querySelector('.qtheme');
+    if(!themeEl){ card.classList.remove('hidden'); return; }
+    const isDC  = themeEl.classList.contains('t-dc');
+    const isRnd = themeEl.classList.contains('t-rnd');
+
+    const show =
+      filter === 'all' ||
+      (filter === 'dc'  && isDC)  ||
+      (filter === 'rnd' && isRnd);
+
+    card.classList.toggle('hidden', !show);
+  });
+
+  // CARD_W 재계산 필요 없음 — 롤링은 visible 카드 기준으로 halfW를 동적 재계산
+  // 단, hidden 카드는 width:0 처리를 CSS로 하므로 track width가 달라짐
+  // → recalcHalfW 호출로 halfW 갱신
+  if(typeof recalcHalfW === 'function') recalcHalfW();
+}
+
+// 초기 active 상태 설정 — 즉시 실행
+(function(){
+  const allBtn = document.querySelector('.qs-filter[data-filter="all"]');
+  if(allBtn) allBtn.classList.add('active');
+})();
 
 /* ── 어록 롤링 : JS 기반 정밀 제어 ──
    ① 자동 롤링 (기본 좌→우)
@@ -701,7 +1042,23 @@ setInterval(async()=>{
   const cards   = Array.from(track.querySelectorAll('.qcard'));
   const CARD_W  = 320 + 16;          // card width + gap px
   const TOTAL   = cards.length / 2;  // 복제 포함 절반
-  const halfW   = TOTAL * CARD_W;
+  let halfW = TOTAL * CARD_W;
+
+  // 필터 변경 시 halfW 재계산 (외부에서 호출 가능하도록 window에 노출)
+  window.recalcHalfW = function(){
+    requestAnimationFrame(()=>{
+      // visible 카드(SET1 기준) 수 × CARD_W
+      const visCount = Array.from(track.querySelectorAll('.qcard')).filter(
+        (card, i) => i < TOTAL && !card.classList.contains('hidden')
+      ).length;
+      halfW = visCount * CARD_W;
+      // pos 범위 재조정
+      if(halfW > 0){
+        pos = pos % halfW;
+        if(pos > 0) pos -= halfW;
+      }
+    });
+  };
 
   track.style.animation = 'none';
 
